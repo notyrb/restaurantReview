@@ -1,0 +1,178 @@
+footer {
+    background: #aaa;
+    color: white;
+}
+
+.edit {
+    float: right;
+    padding-right: 10px;
+}
+.navbar-nav > li{
+    padding-left:15px;
+    padding-right:15px;
+  }
+
+.navbar-brand{
+    padding-left: 20px;
+    font-family: 'Proxima Nova';
+    font-weight: bold;
+    font-size: 25px;
+    color: white;
+}
+.navbar-brand a:hover{
+    color: white !important;
+    cursor: pointer;
+}
+.nav-link{
+    font-family: 'Monsterrat', sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: white;
+}
+.nav-item a:hover {
+    color:#B76931 !important;
+    cursor: pointer;
+}
+.mainBox{
+    position: relative;
+    display: inline-block; /* Make the width of box same as image */
+}
+.mainBox .text{
+    position: absolute;
+    z-index: 999;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    color: #B76931;
+    top: 32%; /* Adjust this value to move the positioned div up and down */
+    font-family: 'Proxima Nova';
+    font-weight: bold;
+    font-size: 35px;
+    width: 80%; /* Set the width of the positioned div */
+}
+.mainBox .text1{
+    position: absolute;
+    z-index: 999;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    color:whitesmoke;
+    top: 40%; /* Adjust this value to move the positioned div up and down */
+    font-family: "Basic Sans";
+    font-weight:bold;
+    font-size: 60px;
+    width: 80%; /* Set the width of the positioned div */
+    line-height: 130%;
+}
+.searchBox{
+    position: absolute;
+    z-index: 999;
+    margin: 0 auto;
+    left: 54%;
+    right: 0;
+    width: 600px;
+    height: 80px;
+    background-color: white;  
+    top: 45%; /* Adjust this value to move the positioned div up and down */
+    width: 37%; /* Set the width of the positioned div */
+    outline: black;
+    
+}
+.searchBox .textSearch{
+    font-size: 9px;
+    font-family: "Proxima Nova";
+    color: black;
+    left: 50%;
+    text-align: center;
+    vertical-align: text-bottom;
+    padding-top: 4.5%;
+}
+.modal-title {
+    font-family: "Proxima Nova";
+    font-weight: bold;
+    font-size: 25px;
+}
+.form-control{
+    border-radius: 10px;
+    height: 50px;
+    width: 260px;
+    font-family: "Proxima Nova";
+    font-weight: 0;
+
+}
+.signUpBtn{
+    margin-left: 182.5px;
+    padding-top: 20px;
+}
+.loginBtn{
+    margin-left: 182.5px;
+    padding-top: 20px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.dropdown-menu{
+    left: auto;
+    right: 5px;
+    top: 45px;
+    width: 200px;
+    height: 135px;
+}
+.dropdown-item{
+    line-height: 30px;
+}
+
+form, input, label, p {
+    color: black !important;
+    font-weight: bold;
+    font-family: "Proxima Nova";
+}
+.updateBtn{
+    margin-left: 364px;
+    padding-top: 50px;
+}
+
+.deleteBtn{
+    margin-left: 20px;
+    margin-top: -50px;
+    line-height: -50px;
+  
+}
+
+.container{
+    font-family: "Proxima Nova";
+}
+
+.stars-outer {
+    display: inline-block;
+    position: relative;
+    font-family: FontAwesome;
+  }
+  
+.stars-outer::before {
+    content: "\f006 \f006 \f006 \f006 \f006";
+  }
+  
+.stars-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+}
+  
+.stars-inner::before {
+    content: "\f005 \f005 \f005 \f005 \f005";
+    color: #f8ce0b;
+}
+
+
+  
+
+
+
+

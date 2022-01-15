@@ -1,0 +1,43 @@
+<!-- this is a structure of Bootstrap Modal -->
+<div class="modal fade " id="loginModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-sm " role="document">
+		<div class="modal-content" style="width: 600px; margin-left: -140px;">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalTitle" style=" padding-left:160px"><span style="color: black;">Login to
+						Food</span><span style="color: #B76931;">Coma!</span> </h5>
+				
+			</div>
+			<div class="modal-body ">
+				<form>
+					<div class="form-group" style="padding-left: 12px;">
+						<label for="inputUsername" style="margin-top: -10px;"></label>
+						<input type="text" class="form-control" id="usernameLogin" placeholder="Username"
+							style="width: 548.5px; margin-top: 0px;">
+					</div>
+					<div class="form-group" style="padding-left: 12px;">
+						<label for="inputPassword" style="margin-top: -10px;"></label>
+						<input type="password" class="form-control" id="passwordLogin" placeholder="Password"
+							style="width: 548.5px; margin-top: -15px;">
+						<input type="checkbox" onclick="myFunction();" style="font-family: Proxima Nova; width: 20px; height: 15px; margin-top: 15px;">Show Password
+
+					</div>
+				
+					<div class="loginBtn"  onclick="loginMe();">
+						<button type="button" class="btn btn-primary" id=loginBtn 
+							style="background-color: #975729; border: none; width: 200px; height: 50px; border-radius: 10px; font-family: Proxima Nova; font-weight: bold;">Login</button>
+					</div>
+					<div class="toSignUpPage">
+						<h5
+							style="color: black; font-family: Proxima Nova; font-size: 15px; margin-top: 30px; padding-left: 20px;">
+							<span style="color: black;">Don't have an account?</span> <span href="#" data-toggle="modal"
+								data-target="#registerModal" data-dismiss="modal" style="color: #B76931;">Sign up
+								here!</span> </h5>
+
+					</div>
+				</form>
+
+			</div>
+
+		</div>
+	</div>
+</div>

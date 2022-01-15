@@ -1,0 +1,73 @@
+<!-- this is a structure of Bootstrap Modal -->
+<div class="modal fade " id="registerModal" tabindex="-1" role="dialog" >    
+	<div class="modal-dialog modal-sm " role="document" >         
+		<div class="modal-content" style="width: 600px; margin-left: -140px;" >  
+			<div class="modal-header">
+				<h5 class = "modal-title" id = "modalTitle" style=" padding-left:160px"><span style="color: black;">Sign in to Food</span><span style="color: #B76931;">Coma!</span> </h5>
+			</div>          
+			<div class="modal-body ">                
+				<form>
+					<div class="form-row">
+					  <div class="form-group col-md-6" style="padding-left: 15px;">
+						<label for="firstName"></label>
+						<input type="firstName" class="form-control"  id="firstName" placeholder="First Name" >
+					  </div>
+					  <div class="form-group col-md-6" style="padding-left: 15px;">
+						<label for="lastName"></label>
+						<input type="lastName" class="form-control" id="lastName" placeholder="Last Name">
+					  </div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6" style="padding-left: 15px; top: -17px; padding-bottom: 0px;">
+						  <label for="inputUsername"></label>
+						  <input type="username" class="form-control" id="username" placeholder="Username (< 15 characters)">
+						</div>
+						<div class="form-group col-md-6" style="padding-left: 15px; top: -17px; padding-bottom: 0px;">
+						  <label for="gender"></label>
+						  <select id="gender" name = "gender" class="form-control " >
+							<option disabled selected value style = "display: none; color: grey;">Gender</option>
+							<option value = "Male">Male</option>
+							<option value = "Female">Female</option>
+						  </select>
+						</div>
+					  </div>
+
+					<div class="form-group" style="padding-left: 12px;">
+					  <label for="inputAddress" style="margin-top: -10px;"></label>
+					  <input type="text" class="form-control" id="address" placeholder="Address" style="width: 548.5px; margin-top: -35px;">
+					</div>
+
+					<div class="form-row">
+						<div class="form-group col-md-6" style="padding-left: 19px;">
+						  <label for="email"></label>
+						  <input type="email" class="form-control"  id="email" placeholder="Email" style="margin-top: -17px;" >
+						</div>
+						<div class="form-group col-md-6" style="padding-left: 17px;">
+						  <label for="phoneNumber"></label>
+						  <input type="text" class="form-control" id="phoneNumber" placeholder="Phone Number" style="margin-top: -17px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
+						</div>
+					  </div>
+
+					<div class="form-group" style="padding-left: 14.5px;">
+					  <label for="password"></label>
+					  <input type="password" class="form-control" id="password" placeholder="Password (Must contain at least 8 characters)" style="width: 548.5px; margin-top: -18px;">
+					</div>  
+
+					<div class="form-group" style="padding-left: 14.5px;">
+						<label for="confirmPassword"></label>
+						<input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password (Must contain at least 8 characters)" style="width: 548.5px; margin-top: -18px;">
+					  </div>
+					<div class="signUpBtn" onclick = "registerMe();">
+						<button type="submit" class="btn btn-primary" id = signUpBtn style="background-color: #975729; border: none; width: 200px; height: 50px; border-radius: 10px; font-family: Proxima Nova; font-weight: bold;">Create Account</button>
+					</div>
+					<div class = "toLogInPage">
+						<h5 style="color: black; font-family: Proxima Nova; font-size: 15px; margin-top: 30px; padding-left: 20px;"><span style="color: black;">Already have an account? </span><span data-toggle = "modal" data-target="#loginModal" data-dismiss ="modal" style="color: #B76931;">Login here!</span> </h5>
+
+					</div>
+					
+				  </form>  
+			</div>            
+			</div>        
+		</div>    
+	</div>
+</div>
