@@ -36,7 +36,7 @@ class RestaurantsDB{
         db.query(sql, [key,cuisine,region,price,rating], callback);
     }
     getFeaturedRestaurantsDetails(callback){
-        var sql = "SELECT restaurant.thumbnail, restaurant._id, restaurant.restaurantName, restaurant.price, restaurant.cuisine, region.regionName, ROUND(avg(review.userRating),1) as averageRating, count(review._id) as totalReviews, count(favourites.favouriterestaurantID) as totalFavourites FROM restaurant INNER JOIN region ON restaurant.regionID = region._id INNER JOIN review ON restaurant._id = review.restaurantID INNER JOIN favourites ON restaurant._id = favourites.favouriterestaurantID GROUP BY restaurant._id ORDER BY avg(review.userRating) DESC LIMIT 6;"
+        var sql = "SELECT restaurant.thumbnail, restaurant._id, restaurant.restaurantName, restaurant.price, restaurant.cuisine, region.regionName, ROUND(avg(review.userRating),1) as averageRating, count(review._id) as totalReviews, count(favourites.favouriterestaurantID) as totalFavourites FROM restaurant_review.restaurant INNER JOIN region ON restaurant.regionID = region._id INNER JOIN review ON restaurant._id = review.restaurantID INNER JOIN favourites ON restaurant._id = favourites.favouriterestaurantID GROUP BY restaurant._id ORDER BY avg(review.userRating) DESC LIMIT 6;"
         db.query(sql,callback)
     }
     getRestaurantDetails(restaurantID, callback){

@@ -23,24 +23,23 @@ function getDetails() {
     document.getElementById("location").textContent = address
     document.getElementById("description").textContent = description
     document.getElementById("phoneNumber").textContent = contact
+    document.getElementById("openingHours").textContent = openingHours;
     document.getElementById("website").textContent = website;
     document.getElementById("website").setAttribute('href', website)
     document.getElementById("picture").setAttribute('src', picture)
-    //getStarRating();
+    //showStarRating();
     showDollarSigns();
 }
 
-const starTotal = 5;
-// Get ratings
-function getStarRating() {
-    // Get percentage
-    const starPercentage = ((averageRating) / starTotal) * 100;
-    // Round to nearest 10
-    const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
-    console.log(starPercentageRounded)
-    document.querySelector(`.${averageRating} .stars-inner`).style.width = starPercentageRounded;
 
-}
+
+/*function showStarRating(){
+    switch (averageRating){
+        case 1:
+
+    }
+} */
+
 
 function showDollarSigns(){
     if (price == "$") {

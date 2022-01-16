@@ -29,17 +29,21 @@
             <div class = "card " style=" position: absolute; width: 350px; height: 350px; margin-left: 663px; margin-top: 20px; ">
                 <div id = "map" style="height: 280px; background-color:gray" ></div>
                 <i class="fas fa-map-marker-alt" style= "color: #D22D2D; font-size: 20px; padding-top: 25px; margin-left: 15px;"></i>
-                <span id = "location" style="color: #D22D2D; padding-left: 37px; font-size:15px; margin-top: -30px; line-height: 20px;"></span>
+                <span id = "location" style="color: #D22D2D; padding-left: 40px; font-size:15px; margin-top: -30px; line-height: 20px;"></span>
             </div>
 
             <!--Display Contact & Information in card-->
-            <div class = "card " style=" position: absolute; width: 350px; height: 350px; margin-left: 663px; margin-top: 420px; ">
+            <div class = "card " style=" position: absolute; width: 350px; height: 400px; margin-left: 663px; margin-top: 420px; ">
                 <h5 style="padding-left: 17px; padding-top: 10px; font-weight: bold;">Contact & Information</h5>
                 <i class="fas fa-phone-alt" style="padding: 15px 0px 0px 17px"></i>
                 <span id = "phoneNumber" style="padding-left: 45px; font-size:17px; margin-top: -19px; line-height: 20px;"></span>
                 <i class="fa fa-link" style="padding: 20px 0px 0px 17px"></i>
                 <a id = "website" target="_blank" style="padding-left: 45px; font-size:17px; margin-top: -19px; line-height: 20px;"></a>
                 <i class="fab fa-facebook" style="color: #3b5998; font-size: 18px; padding: 20px 0px 0px 17px"></i>
+                <i class="far fa-clock" style = "font-size:18px; padding: 20px 0px 0px 17px"></i>
+                <span style="padding-left: 45px; font-size:17px; margin-top: -20px; line-height: 20px;">Operating Hours</span>
+                <span style="white-space: pre-line; width: 150px; padding-left: 45px; font-size:17px; margin-top: 15px; line-height: 23px;">Sunday: Monday: Tuesday: Wednesday: Thursday: Friday: Saturday:</span>
+                <span id = "openingHours" style="margin-left: 155px; font-size:17px; margin-top: -161px; line-height: 23px; width: 120px;"></span>
             
             </div>
                 
@@ -48,10 +52,11 @@
             <hr style="width: 570px; height:0.5px; border-width:0; background-color:#707070; margin-left: 0px; margin-top: 20px;">
             <div style="margin-top: 8px;">
                 <!-- rating-->
-                <span class="stars-outer" style="font-size: 18px;">
-                    <div class="stars-inner">
-                    </div>
-                </span>
+                <i id = "star1" class="fas fa-star" style = "font-size: 18px;"></i>
+                <i id = "star2"class="fas fa-star" style = "font-size: 18px;"></i>
+                <i id = "star3"class="fas fa-star" style = "font-size: 18px;"></i>
+                <i id = "star4"class="fas fa-star" style = "font-size: 18px;"></i>
+                <i id = "star5"class="fas fa-star" style = "font-size: 18px;"></i>
                 <span id="ratingNumber" style="font-family: Proxima Nova; padding-left: 10px; margin-top: -24px; font-weight: normal; font-size: 20px;"></span>
                 
                 <!-- Reviews-->
@@ -84,15 +89,6 @@
                 <span style="font-size: 27px; font-weight: bold; ">Ratings and Reviews (</span><span id ="totalRatings" style="font-size: 27px; font-weight: bold; "></span><span style="font-size: 27px; font-weight: bold; ">)</span> 
 
             </div>
-            
-
-
-
-        
-            
-
-
-
         </div>
 
     </div>
@@ -101,8 +97,6 @@
 
 
     </div>
-    <!-- Include the movies modal here -->
-    <div w3-include-html="movies-modal.html"></div>
     <!-- Include the comments modal here -->
     <div w3-include-html="comments-modal.html"></div>
     <!-- Include the new comments modal here -->
@@ -112,6 +106,7 @@
 
     <div w3-include-html="register-modal.html"></div>
     <div w3-include-html="login-modal.html"></div>
+
 
 
     <br><br>
@@ -135,6 +130,7 @@
 <script src="js/register.js"></script>
 <script src="js/login.js"></script>
 <script src="js/checktoken.js"></script>
+<script src="js/profile.js"></script>
 
 
 </html>
