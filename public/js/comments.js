@@ -1,4 +1,4 @@
-/*function fetchComments() {
+function fetchComments() {
     var request = new XMLHttpRequest();
 
     request.open('GET', comment_url, true);
@@ -11,7 +11,7 @@
     };
 
     request.send();
-} */
+} 
 
 //This function is to display all the comments of that movie
 //whenever the user click on the "comment" button

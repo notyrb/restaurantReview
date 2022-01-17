@@ -26,72 +26,137 @@
 
         <div id="restaurantDetails" class="container" style="padding: 20px 0px 0px 50px ">
             <!--Display map and address in card-->
-            <div class = "card " style=" position: absolute; width: 350px; height: 350px; margin-left: 663px; margin-top: 20px; ">
-                <div id = "map" style="height: 280px; background-color:gray" ></div>
-                <i class="fas fa-map-marker-alt" style= "color: #D22D2D; font-size: 20px; padding-top: 25px; margin-left: 15px;"></i>
-                <span id = "location" style="color: #D22D2D; padding-left: 40px; font-size:15px; margin-top: -30px; line-height: 20px;"></span>
+            <div class="card "
+                style=" position: absolute; width: 350px; height: 350px; margin-left: 663px; margin-top: 20px; ">
+                <div id="map" style="height: 280px; background-color:gray"></div>
+                <i class="fas fa-map-marker-alt"
+                    style="color: #D22D2D; font-size: 20px; padding-top: 25px; margin-left: 15px;"></i>
+                <span id="location"
+                    style="color: #D22D2D; padding-left: 40px; font-size:15px; margin-top: -30px; line-height: 20px;"></span>
             </div>
 
             <!--Display Contact & Information in card-->
-            <div class = "card " style=" position: absolute; width: 350px; height: 400px; margin-left: 663px; margin-top: 420px; ">
+            <div class="card "
+                style=" position: absolute; width: 350px; height: 400px; margin-left: 663px; margin-top: 420px; ">
                 <h5 style="padding-left: 17px; padding-top: 10px; font-weight: bold;">Contact & Information</h5>
+
+                <!--Display Contact number-->
                 <i class="fas fa-phone-alt" style="padding: 15px 0px 0px 17px"></i>
-                <span id = "phoneNumber" style="padding-left: 45px; font-size:17px; margin-top: -19px; line-height: 20px;"></span>
+                <span id="phoneNumber"
+                    style="padding-left: 45px; font-size:17px; margin-top: -19px; line-height: 20px;"></span>
+
+                <!--Display Website-->
                 <i class="fa fa-link" style="padding: 20px 0px 0px 17px"></i>
-                <a id = "website" target="_blank" style="padding-left: 45px; font-size:17px; margin-top: -19px; line-height: 20px;"></a>
+                <a id="website" target="_blank"
+                    style="padding-left: 45px; font-size:17px; margin-top: -19px; line-height: 20px;"></a>
                 <i class="fab fa-facebook" style="color: #3b5998; font-size: 18px; padding: 20px 0px 0px 17px"></i>
-                <i class="far fa-clock" style = "font-size:18px; padding: 20px 0px 0px 17px"></i>
-                <span style="padding-left: 45px; font-size:17px; margin-top: -20px; line-height: 20px;">Operating Hours</span>
-                <span style="white-space: pre-line; width: 150px; padding-left: 45px; font-size:17px; margin-top: 15px; line-height: 23px;">Sunday: Monday: Tuesday: Wednesday: Thursday: Friday: Saturday:</span>
-                <span id = "openingHours" style="margin-left: 155px; font-size:17px; margin-top: -161px; line-height: 23px; width: 120px;"></span>
-            
+
+                <!--Display Operating Hours-->
+                <i class="far fa-clock" style="font-size:18px; padding: 20px 0px 0px 17px"></i>
+                <span style="padding-left: 45px; font-size:17px; margin-top: -20px; line-height: 20px;">Operating
+                    Hours</span>
+                <span
+                    style="white-space: pre-line; width: 150px; padding-left: 45px; font-size:17px; margin-top: 15px; line-height: 23px;">Sunday:
+                    Monday: Tuesday: Wednesday: Thursday: Friday: Saturday:</span>
+                <span id="openingHours"
+                    style="margin-left: 155px; font-size:17px; margin-top: -161px; line-height: 23px; width: 120px;"></span>
+
             </div>
-                
+
 
             <h3 id="restaurantName" style="font-weight: bold; font-size: 35px; padding-top: 20px;"></h3>
-            <hr style="width: 570px; height:0.5px; border-width:0; background-color:#707070; margin-left: 0px; margin-top: 20px;">
+            <hr
+                style="width: 570px; height:0.5px; border-width:0; background-color:#707070; margin-left: 0px; margin-top: 20px;">
             <div style="margin-top: 8px;">
                 <!-- rating-->
-                <i id = "star1" class="fas fa-star" style = "font-size: 18px;"></i>
-                <i id = "star2"class="fas fa-star" style = "font-size: 18px;"></i>
-                <i id = "star3"class="fas fa-star" style = "font-size: 18px;"></i>
-                <i id = "star4"class="fas fa-star" style = "font-size: 18px;"></i>
-                <i id = "star5"class="fas fa-star" style = "font-size: 18px;"></i>
-                <span id="ratingNumber" style="font-family: Proxima Nova; padding-left: 10px; margin-top: -24px; font-weight: normal; font-size: 20px;"></span>
-                
+                <i id="star1" class="fas fa-star" style="font-size: 18px;"></i>
+                <i id="star2" class="fas fa-star" style="font-size: 18px;"></i>
+                <i id="star3" class="fas fa-star" style="font-size: 18px;"></i>
+                <i id="star4" class="fas fa-star" style="font-size: 18px;"></i>
+                <i id="star5" class="fas fa-star" style="font-size: 18px;"></i>
+                <span id="ratingNumber"
+                    style="font-family: Proxima Nova; padding-left: 10px; margin-top: -24px; font-weight: normal; font-size: 20px;"></span>
+
                 <!-- Reviews-->
                 <span style="padding-left: 30px;">
                     <i class="far fa-comment-alt" style="font-size:18px; "></i>
-                    <span id = "totalReviews" style="font-size: 20px; padding-left: 10px;"></span> 
-                    <span style="font-size: 20px; padding-left: 3px;"> Reviews</span> 
+                    <span id="totalReviews" style="font-size: 20px; padding-left: 10px;"></span>
+                    <span style="font-size: 20px; padding-left: 3px;"> Reviews</span>
                 </span>
 
-                 <!-- Cuisine-->
-                 <span style="padding-left: 30px;">
+                <!-- Cuisine-->
+                <span style="padding-left: 30px;">
                     <i class="fas fa-utensils" style="font-size:18px; "></i>
-                    <span id = "cuisine" style="font-size: 20px; padding-left: 10px;"></span> 
+                    <span id="cuisine" style="font-size: 20px; padding-left: 10px;"></span>
                 </span>
                 <!-- Cuisine-->
                 <span style="padding-left: 30px;">
-                    <i class="fas fa-money-bill" style="font-size:18px;" ></i>
-                    <i id = "dollar1" class="fas fa-dollar-sign" style="color: lightgray; padding-left: 10px;"></i>
-                    <i id = "dollar2" class="fas fa-dollar-sign" style="color: lightgray;"></i>
-                    <i id = "dollar3" class="fas fa-dollar-sign" style="color: lightgray;"></i>
+                    <i class="fas fa-money-bill" style="font-size:18px;"></i>
+                    <i id="dollar1" class="fas fa-dollar-sign" style="color: lightgray; padding-left: 10px;"></i>
+                    <i id="dollar2" class="fas fa-dollar-sign" style="color: lightgray;"></i>
+                    <i id="dollar3" class="fas fa-dollar-sign" style="color: lightgray;"></i>
                 </span>
             </div>
             <!-- Description-->
             <div>
                 <h3 style="padding-top: 40px; font-weight: bolder;">About the restaurant</h3>
-                <div id = "description" style="width: 570px; padding-top: 15px; padding-bottom: 40px;"></div>
+                <div id="description" style="width: 570px; padding-top: 15px; padding-bottom: 40px;"></div>
             </div>
             <!-- Ratings and Reviews-->
             <div>
-                <span style="font-size: 27px; font-weight: bold; ">Ratings and Reviews (</span><span id ="totalRatings" style="font-size: 27px; font-weight: bold; "></span><span style="font-size: 27px; font-weight: bold; ">)</span> 
-
+                <span style="font-size: 27px; font-weight: bold; ">Ratings and Reviews (</span><span id="totalRatings"
+                    style="font-size: 27px; font-weight: bold; "></span><span
+                    style="font-size: 27px; font-weight: bold; ">)</span>
             </div>
         </div>
 
-    </div>
+        <!-- Display all reviews -->
+        <div>
+            <h5 style="padding: 20px 0px 0px 50px; font-size:20px;">Sort by</h5>
+            <label for="sortReviews" style="padding: 0px 0px 0px 45px;"></label>
+            <select name="sortReviews" id="sortReviews" style="width: 285px; height:38px; padding-left: 10px;">
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+                <option value="highestRating">Highest Rating</option>
+                <option value="lowestRating">Lowest Rating</option>
+            </select>
+
+
+
+            <div class="container" id="reviews" style="padding-top: 50px; padding-left: 50px; ">
+                <div class="card" style="width: 580px; height: 150px; outline: 1px;">
+                    <div class="col-2" style="text-align: center; padding-left:30px; padding-top: 25px;">
+                        <img src="images/avatar.jpg"
+                            style="width: 60px; height: 60px; border-radius: 50%; ">
+                        <h5 style="font-size: 14px; width: 63px; padding-bottom: 15px; padding-top: 7px; ">bryton123
+                        </h5>
+                    </div>
+                    <div class ="col-md-6" style = "padding-left:150px; margin-top: -3px;">
+                        <span style="display:block;">
+                            <i id="star1" class="fas fa-star" style="font-size: 18px; color:#B76931"></i>
+                            <i id="star2" class="fas fa-star" style="font-size: 18px; color:#B76931"></i>
+                            <i id="star3" class="fas fa-star" style="font-size: 18px;color:#B76931"></i>
+                            <i id="star4" class="fas fa-star" style="font-size: 18px;color:#B76931"></i>
+                            <i id="star5" class="fas fa-star" style="font-size: 18px;color:#B76931"></i>
+                        </span>
+        
+                        <h6 style="padding-top:8px; width: 400px;">Review</h6>
+                    </div>
+                    <span class = "editDeleteButtons" style="width:300px; padding-top: 20px; margin-left: 445px;">
+                        <span>Edit</span>
+                        <i class="fas fa-pencil-alt"></i>
+                        <span style="color:#D44848; padding-left: 5px;">Delete</span>
+                        <i class="fas fa-trash" style="color:#D44848"></i>
+                    
+                    </span>
+                    <h7 style="margin-left: 450px; margin-top: -135px; max-width: 200px;">Tue 11 Jan 2022</h7>
+                    
+
+                </div>
+            </div>
+
+
+        </div>
 
 
 
@@ -130,7 +195,7 @@
 <script src="js/register.js"></script>
 <script src="js/login.js"></script>
 <script src="js/checktoken.js"></script>
-<script src="js/profile.js"></script>
+
 
 
 </html>

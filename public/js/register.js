@@ -25,7 +25,7 @@ function registerMe() {
         return;
     }
 
-    if (username.length > 15) {
+    if (username.length > 10) {
         alert("Your username cannot be more than 15 characters! ");
         return;
     }

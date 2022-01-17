@@ -92,48 +92,8 @@ function getRestaurantDetails(element) {
         window.location.href = 'restaurant.html'
         
     }
-    getRestaurantDetails.send();
-    //var item = element.getAttribute("item");
-    //currentIndex = item;
-    /*document.getElementById("movieTitle").textContent = movie_array[item].title;
-    document.getElementById("moviePoster").src = movie_array[item].poster;
-    document.getElementById("genre").textContent = movie_array[item].genre;
-    document.getElementById("director").textContent = movie_array[item].director;
-    document.getElementById("cast").textContent = movie_array[item].cast;
-    document.getElementById("release").textContent = movie_array[item].release;
-    document.getElementById("advice").textContent = movie_array[item].advice;
-    document.getElementById("story").textContent = movie_array[item].story;
-    document.getElementById("trailer1").src = movie_array[item].video1;
-    document.getElementById("trailer2").src = movie_array[item].video2; */
-    
-    
+    getRestaurantDetails.send()
 }
 
 
-//This function is to display the "Now Showing" movies
-function listNowShowingMovies() {
-    category = "Now Showing";
-    displayMovies(category);
-    document.getElementById("nowMenu").classList.add("active");
-    document.getElementById("comingMenu").classList.remove("active");
-    document.getElementById("aboutMenu").classList.remove("active");
-}
-
-//This function is to display the "Coming Soon" movies
-function listComingMovies() {
-    category = "Coming Soon";
-    displayMovies(category);
-    document.getElementById("nowMenu").classList.remove("active");
-    document.getElementById("comingMenu").classList.add("active");
-    document.getElementById("aboutMenu").classList.remove("active");
-}
-
-//This function is to display the individual movies details
-//whenever the user clicks on "See More"
-
-//This function opens a new window/tab and loads the
-//particular movie in the cinema website
-function buyTicket() {
-    window.open(movie_array[currentIndex].buy, "_blank");
-}
 
