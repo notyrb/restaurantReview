@@ -1,6 +1,3 @@
-
-
-var location;
 function getDetails() {
     restaurantName = sessionStorage.getItem("restaurantName")
     cuisine = sessionStorage.getItem("cuisine")
@@ -84,21 +81,37 @@ function showRestaurantReviews() {
         var reviewID = review_array[i]._id;
         var username = review_array[i].username;
         var userRating = review_array[i].userRating;
-        var profilePicture = review_array[i].profilePicture;
         var datePosted = review_array[i].datePosted;
         var datePosted = datePosted.substring(0,15)
         var comment = review_array[i].comment;
+        if (profilePicture != null || profilePicture != ""){
+            var profilePicture = review_array[i].profilePicture;
+        }
+        else{
+            var profilePicture = "images/avatar.jpg"
+        }
         //document.getElementById("emptyComment").innerHTML = "";
         //selectedMovieId = movie_array[item]._id;
         //star = "";
         var html =  `<div class="card" style="width: 580px; height: 150px; outline: 1px;">
-        <div class="col-2" style="text-align: center; padding-left:30px; padding-top: 25px;">
-            <img src="images/avatar.jpg"
-                style="width: 60px; height: 60px; border-radius: 50%; ">
-            <h5 style="font-size: 14px; width: 63px; padding-bottom: 15px; padding-top: 7px; "> ${username}
+        <div class="col-2" style="text-align: center; padding-left:30px; padding-top: 25px;">`
+        /*if (profilePicture != null || profilePicture != ""){
+            image = `<img src="${profilePicture}"
+                style="width: 60px; height: 60px; border-radius: 50%; ">`
+            html += image;
+        }
+        else{
+            image = `<img src="images/avatar.jpg"
+                style="width: 60px; height: 60px; border-radius: 50%; ">`
+            html += image;
+        } */
+        html += `<img src="${profilePicture}"
+        style="width: 60px; height: 60px; border-radius: 50%; ">`
+        html += `<h5 style="font-size: 14px; width: 63px; padding-bottom: 15px; padding-top: 7px; "> ${username}
             </h5>
         </div> 
         <div class ="col-md-6" style = "padding-left:150px; margin-top: -3px;"> `
+     
         var star = "";
         for (var j = 0; j < userRating; j++) {
             console.log(i);
@@ -111,10 +124,10 @@ function showRestaurantReviews() {
                 html += star;
             }
         }  
-        commentAndDate =  `<h6 style="padding-top:8px; width: 400px;">${comment}</h6>
+        html+= `<h6 style="padding-top:8px; width: 400px;">${comment}</h6>
         </div>
         <h7 style="margin-left: 450px; margin-top: -90px; max-width: 200px;">${datePosted}</h7> `
-        html += commentAndDate;
+
         if (username == localStorage.getItem("username")){
             editDeleteButtons =  `<span id = "${reviewID}" class = "editDeleteButtons" style="width:300px; padding-top: 86px; margin-left: 445px;">
             <span>Edit</span>
@@ -138,7 +151,6 @@ function editReview(){
 
 // function to delete review
 function deleteReview(element){
-
     var response = confirm("Are you sure you want to delete this review?");
 
     if (response == true){
@@ -151,21 +163,6 @@ function deleteReview(element){
             fetchComments();
             showRestaurantReviews();
             location.reload();
-        };
-        eraseComment.send();
-    }
-
-}
-function deleteComment(element) {
-    var response = confirm("Are you sure you want to delete this comment?");
-
-    if (response == true) {
-        var item = element.getAttribute("item"); //get the current item
-        var delete_comment_url = comment_url + "/" + comment_array[item]._id;
-        var eraseComment = new XMLHttpRequest();
-        eraseComment.open("DELETE", delete_comment_url, true);
-        eraseComment.onload = function() {
-            fetchComments();
         };
         eraseComment.send();
     }

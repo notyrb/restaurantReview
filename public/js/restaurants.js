@@ -58,7 +58,7 @@ function displayRestaurants(){
                         <h5 style="padding-left:-20px; padding-top: 20px; font-family: Proxima Nova; font-size:21px; cursor:pointer" class="card-title" item="' + count + '">' + restaurantName + '</h5>\
                         <h7 style="padding-left:-20px; margin-top: -5px; font-family: Proxima Nova; font-size:15px; cursor:pointer" class="card-title" item="' + count + '">' + averageRating + '</h7>\
                         <i class = "fa fa-star" style = "color:#B76931; width:20px; height:20px; margin-top:-32px; padding-left:25px"></i>\
-                        <h7 style=" color: #504656; padding-left: 60px; margin-top: -22.5px; font-family: Proxima Nova; font-size:15px; cursor:pointer"  class="card-title" item="' + count + '" >' + totalReviews + " Reviews" + " • "+  totalFavourites + " Favourited" + ' </h7>\
+                        <h7 style=" color: #504656; padding-left: 60px; margin-top: -22.5px; font-family: Proxima Nova; font-size:15px; cursor:pointer"  class="card-title" item="' + count + '" >' + totalReviews + " Reviews" + ' </h7>\
                         <h7 style=" color: #000000; padding-left: -20px; margin-top: -6px; font-family: Proxima Nova; font-size:15px; cursor:pointer" class="card-title" item="' + count + '" >' + cuisine + " • "+ price + " • "+ regionName +' </h7>\
                         \
                     </div>'

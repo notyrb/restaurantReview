@@ -1,4 +1,5 @@
-$(document).ready(function () {
+function getAccountDetails(){
+    $(document).ready(function () {
     var getProfile = new XMLHttpRequest();
 
     getProfile.open("POST", "http://127.0.0.1:8080/userInfo", true);
@@ -17,6 +18,7 @@ $(document).ready(function () {
         username = profile[0].username;
 
         console.log(profile);
+        localStorage.setItem("profilePicture", profilePicture);
 
         document.getElementById('firstName').value = firstName;
         document.getElementById('lastName').value = lastName;
@@ -32,7 +34,8 @@ $(document).ready(function () {
 
     var payload = { token: token };
     getProfile.send(JSON.stringify(payload));
-})
+})}
+
 
 function deleteAccount() {
     deleteAccountPassword = document.getElementById("deleteAccPassword").value;
@@ -57,7 +60,6 @@ function deleteAccount() {
     }
 }
 function encode() {
-
     var selectedfile = document.getElementById("myinput").files;
     if (selectedfile.length > 0) {
         var imageFile = selectedfile[0];

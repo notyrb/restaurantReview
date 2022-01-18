@@ -85,6 +85,7 @@ function loginMe() {
             document.getElementById("profileUsername").style.display = "block";
             document.getElementById("profileDropdown").textContent = token.username
             sessionStorage.setItem("token", token.result)
+            location.reload()
 
         }
         else {
