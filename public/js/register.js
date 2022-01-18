@@ -82,9 +82,9 @@ function loginMe() {
             alert("Successfully logged in! Welcome, " + localStorage.getItem("username") + "!")
             document.getElementById("loginMenu").style.display = "none";
             document.getElementById("registerMenu").style.display = "none";
-            document.getElementById("profileDropdown").style.display = "block";
+            document.getElementById("profileUsername").style.display = "block";
+            document.getElementById("profileDropdown").textContent = token.username
             sessionStorage.setItem("token", token.result)
-
 
         }
         else {
@@ -103,7 +103,7 @@ function logoutMe() {
     if (logOut) {
         $('#registerMenu').show();
         $('#loginMenu').show();
-        $('#profileDropdown').hide();
+        $('#profileUsername').hide();
         sessionStorage.removeItem("token")
         if(window.location = "profile.html"){
             window.location.href = "index.html";

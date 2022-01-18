@@ -3,7 +3,7 @@ $(document).ready(function(){
     if (token != null){
         $('#registerMenu').hide();
         $('#loginMenu').hide();
-        $('#profileDropdown').show();
+        $('#profileUsername').show();
     }else{
         window.location.href = "index.html";
     }

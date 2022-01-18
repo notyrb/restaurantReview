@@ -73,4 +73,19 @@ function updatePassword() {
     }
 
 } */
+function encode() {
+
+    var selectedfile = document.getElementById("myinput").files;
+    if (selectedfile.length > 0) {
+        var imageFile = selectedfile[0];
+        var fileReader = new FileReader();
+        fileReader.onload = function (fileLoadedEvent) {
+            profilePicture = fileLoadedEvent.target.result;
+            document.getElementById("profilePicture").src = profilePicture;
+        }
+        fileReader.readAsDataURL(imageFile);
+    }
+}
+
+
  

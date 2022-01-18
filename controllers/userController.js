@@ -3,6 +3,8 @@ const User = require('../models/User');
 const UsersDB = require('../models/UsersDB');
 //const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
+const res = require('express/lib/response');
+
 var secret = "somesecretkey"
 
 var usersDB = new UsersDB();
@@ -43,6 +45,7 @@ function addUser(request, respond) {
 function loginUser(request, respond) {
     var username = request.body.username;
     var password = request.body.password;
+    //var profilePicture = request.body.profilePicture;
     usersDB.loginUser(username, function (error, result) {
         if (error) {
             throw error;

@@ -112,6 +112,7 @@
 
         <!-- Display all reviews -->
         <div>
+            <!-- Sort reviews -->
             <h5 style="padding: 20px 0px 0px 50px; font-size:20px;">Sort by</h5>
             <label for="sortReviews" style="padding: 0px 0px 0px 45px;"></label>
             <select name="sortReviews" id="sortReviews" style="width: 285px; height:38px; padding-left: 10px;">
@@ -121,10 +122,15 @@
                 <option value="lowestRating">Lowest Rating</option>
             </select>
 
+            <!-- Add a review -->
+            <button style="width: 140px; height: 38px; background-color: white; border-width: 1px; cursor: pointer; margin-left: 152px;">
+                <i class="fas fa-plus" style="padding-right: 5px;"></i> Add a review
+            </button>
 
-
-            <div class="container" id="reviews" style="padding-top: 50px; padding-left: 50px; ">
-                <div class="card" style="width: 580px; height: 150px; outline: 1px;">
+            <!-- Display review section -->
+            <div class="container" id="reviews" style="padding-top: 50px; padding-left: 50px;">
+                <div id = "reviewBody" class="card" style=" margin-bottom:20px; width: 580px; height: 150px; outline: 1px;">
+                    <!--
                     <div class="col-2" style="text-align: center; padding-left:30px; padding-top: 25px;">
                         <img src="images/avatar.jpg"
                             style="width: 60px; height: 60px; border-radius: 50%; ">
@@ -142,17 +148,18 @@
         
                         <h6 style="padding-top:8px; width: 400px;">Review</h6>
                     </div>
-                    <span class = "editDeleteButtons" style="width:300px; padding-top: 20px; margin-left: 445px;">
+                    <h7 style="margin-left: 450px; margin-top: -90px; max-width: 200px;">Tue 11 Jan 2022</h7>
+                    <span class = "editDeleteButtons" style="width:300px; padding-top: 86px; margin-left: 445px;">
                         <span>Edit</span>
                         <i class="fas fa-pencil-alt"></i>
                         <span style="color:#D44848; padding-left: 5px;">Delete</span>
                         <i class="fas fa-trash" style="color:#D44848"></i>
-                    
                     </span>
-                    <h7 style="margin-left: 450px; margin-top: -135px; max-width: 200px;">Tue 11 Jan 2022</h7>
+                    -->
                     
-
+                    
                 </div>
+            
             </div>
 
 

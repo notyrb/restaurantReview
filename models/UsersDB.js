@@ -12,7 +12,7 @@ class UsersDB{
         db.query(sql, [username, firstName, lastName, email, password, address, gender, phoneNumber, profilePicture], callback);
     }
     loginUser(username,callback){
-        var sql = "SELECT password FROM restaurant_review.user WHERE username = ?"
+        var sql = "SELECT password, profilePicture FROM restaurant_review.user WHERE username = ?"
         db.query(sql, [username], callback);
     }
     deleteUser(username, callback){

@@ -86,11 +86,11 @@ function update() {
     address = document.getElementById("address").value;
     gender = document.getElementById("gender").value;
     phoneNumber = document.getElementById("phoneNumber").value;
-    profilePicture = document.getElementById("profilePicture").src;
+
 
     var payload = { firstName: firstName, lastName: lastName, email: email, password: password, address: address, gender: gender, phoneNumber: phoneNumber, profilePicture: profilePicture, token: token }
     updateUser.send(JSON.stringify(payload));
-}
+} 
 
 function updatePassword() {
     currentPassword = document.getElementById("currentPassword").value;

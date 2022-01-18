@@ -1,3 +1,5 @@
+
+
 var location;
 function getDetails() {
     restaurantName = sessionStorage.getItem("restaurantName")
@@ -74,11 +76,8 @@ function fetchComments() {
 }
 
 function showRestaurantReviews() {
-    //document.getElementById("emptyComment").innerHTML = "No review yet. Create one now";
-    //var item = element.getAttribute("item");
-    //currentIndex = item;
-    //document.getElementById("review").textContent = "Review for " + movie_array[item].title;
-    //document.getElementById("commentBody").textContent = "";
+    var reviews = document.getElementById('reviews')
+    reviews.innerHTML = ""
 
     for (var i = 0; i < review_array.length; i++) {
         console.log(review_array[i])
@@ -87,28 +86,87 @@ function showRestaurantReviews() {
         var userRating = review_array[i].userRating;
         var profilePicture = review_array[i].profilePicture;
         var datePosted = review_array[i].datePosted;
+        var datePosted = datePosted.substring(0,15)
         var comment = review_array[i].comment;
         //document.getElementById("emptyComment").innerHTML = "";
         //selectedMovieId = movie_array[item]._id;
         //star = "";
-        var html = '<div class="text-center" style="width:100%;">                                                           \
-                            <div class="card">                                                                                  \
-                                <div class="card-body">                                                                         \
-                                    <p class="card-text" id="rating' + i + '">' + comment_array[i].review + "</p>               \
-                                    <small>by " + comment_array[i].username + " @ " + comment_array[i].datePosted + "</small>   \
-                                </div>                                                                                          \
-                            </div>                                                                                              \
-                        </div>";
-        document.getElementById("commentBody").insertAdjacentHTML('beforeend', html);
-
+        var html =  `<div class="card" style="width: 580px; height: 150px; outline: 1px;">
+        <div class="col-2" style="text-align: center; padding-left:30px; padding-top: 25px;">
+            <img src="images/avatar.jpg"
+                style="width: 60px; height: 60px; border-radius: 50%; ">
+            <h5 style="font-size: 14px; width: 63px; padding-bottom: 15px; padding-top: 7px; "> ${username}
+            </h5>
+        </div> 
+        <div class ="col-md-6" style = "padding-left:150px; margin-top: -3px;"> `
         var star = "";
-        for (var j = 0; j < comment_array[i].rating; j++) {
+        for (var j = 0; j < userRating; j++) {
             console.log(i);
-            star += "<img src='images/popcorn.png' style='width:50px' />";
+            star = `<i id="star1" class="fas fa-star" style="font-size: 18px; color:#B76931"></i>`;
+            html += star;
         }
-        star += "<i class='far fa-trash-alt fa-2x edit' data-dismiss='modal' item='" + i + "' onClick='deleteComment(this)' ></i>";
-        star += "<i class='far fa-edit fa-2x edit' data-toggle='modal' data-target='#editCommentModal' data-dismiss='modal' item='" + i + "' onClick='editComment(this)' ></i>";
-        document.getElementById("rating" + i).insertAdjacentHTML('beforebegin', star + "<br/>");
+        if( 5 -userRating != 0){
+            for (var index = 0; index < 5 -userRating; index++) {
+                star = `<i id="star1" class="fas fa-star" style="font-size: 18px; color:#E8E3DF"></i>`;
+                html += star;
+            }
+        }  
+        commentAndDate =  `<h6 style="padding-top:8px; width: 400px;">${comment}</h6>
+        </div>
+        <h7 style="margin-left: 450px; margin-top: -90px; max-width: 200px;">${datePosted}</h7> `
+        html += commentAndDate;
+        if (username == localStorage.getItem("username")){
+            editDeleteButtons =  `<span id = "${reviewID}" class = "editDeleteButtons" style="width:300px; padding-top: 86px; margin-left: 445px;">
+            <span>Edit</span>
+            <i class="fas fa-pencil-alt"></i>
+            <span onclick = "deleteReview(this);" deleteReview(this); style="color:#D44848; padding-left: 5px;">Delete</span>
+            <i onclick = "deleteReview(this);" class="fas fa-trash" style="color:#D44848"></i>
+            </span> `
+            html += editDeleteButtons;
+        }
+        else{
+            var empty =` </div></div>`
+            html+= empty  
+        }
+        reviews.insertAdjacentHTML('beforeend', html);
+    }
+}
 
+function editReview(){
+
+}
+
+// function to delete review
+function deleteReview(element){
+
+    var response = confirm("Are you sure you want to delete this review?");
+
+    if (response == true){
+        var reviewID = element.parentNode.id
+        var review_url = "review/" + reviewID;
+        var eraseComment = new XMLHttpRequest();
+        eraseComment.open("DELETE", review_url, true);
+        eraseComment.onload = function() {
+            getDetails();
+            fetchComments();
+            showRestaurantReviews();
+            location.reload();
+        };
+        eraseComment.send();
+    }
+
+}
+function deleteComment(element) {
+    var response = confirm("Are you sure you want to delete this comment?");
+
+    if (response == true) {
+        var item = element.getAttribute("item"); //get the current item
+        var delete_comment_url = comment_url + "/" + comment_array[item]._id;
+        var eraseComment = new XMLHttpRequest();
+        eraseComment.open("DELETE", delete_comment_url, true);
+        eraseComment.onload = function() {
+            fetchComments();
+        };
+        eraseComment.send();
     }
 }
