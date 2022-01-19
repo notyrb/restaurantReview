@@ -4,7 +4,7 @@
     if (selectedfile.length > 0) {
         var imageFile = selectedfile[0];
         var fileReader = new FileReader();
-        fileReader.onload = function (fileLoadedEvent) {
+        fileReader.onload = function(fileLoadedEvent) {
             profilePicture = fileLoadedEvent.target.result;
             document.getElementById("profilePicture").src = profilePicture;
         }
@@ -28,7 +28,7 @@ function update() {
     address = document.getElementById("address").value;
     gender = document.getElementById("gender").value;
     phoneNumber = document.getElementById("phoneNumber").value;
-    profilePicture = document.getElementById("profilePicture").src;
+    console.log(profilePicture)
 
     var payload = { firstName: firstName, lastName: lastName, email: email, password: password, address: address, gender: gender, phoneNumber: phoneNumber, profilePicture: profilePicture, token: token }
     updateUser.send(JSON.stringify(payload));
@@ -73,19 +73,6 @@ function updatePassword() {
     }
 
 } */
-function encode() {
-
-    var selectedfile = document.getElementById("myinput").files;
-    if (selectedfile.length > 0) {
-        var imageFile = selectedfile[0];
-        var fileReader = new FileReader();
-        fileReader.onload = function (fileLoadedEvent) {
-            profilePicture = fileLoadedEvent.target.result;
-            document.getElementById("profilePicture").src = profilePicture;
-        }
-        fileReader.readAsDataURL(imageFile);
-    }
-}
 
 
  

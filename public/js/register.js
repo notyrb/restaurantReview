@@ -85,14 +85,12 @@ function loginMe() {
             document.getElementById("profileUsername").style.display = "block";
             document.getElementById("profileDropdown").textContent = token.username
             sessionStorage.setItem("token", token.result)
-            location.reload()
-
+            location.reload();
         }
         else {
             alert("Wrong credentials entered!")
         }
     }
-
     var username = document.getElementById("usernameLogin").value;
     var password = document.getElementById("passwordLogin").value;
     var payload = { username: username, password: password }
@@ -106,7 +104,8 @@ function logoutMe() {
         $('#loginMenu').show();
         $('#profileUsername').hide();
         sessionStorage.removeItem("token")
-        if(window.location = "profile.html"){
+        localStorage.clear();
+        if(window.location = "profile.html" || window.location == "restaurant.html"){
             window.location.href = "index.html";
         }
     }

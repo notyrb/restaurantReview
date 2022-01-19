@@ -16,9 +16,17 @@ function getAccountDetails(){
         profilePicture = profile[0].profilePicture;
         userPassword = profile[0].password;
         username = profile[0].username;
+        localStorage.setItem("profilePicture", profilePicture);
+
+        if (profilePicture != null && profilePicture != "" && profilePicture != undefined){
+            document.getElementById("profilePicture").src = profilePicture;
+        }
+        /*else if (profilePicture == undefined) {
+            document.getElementById("profilePicture").src = "images/avatar.jpg"
+        }  */
 
         console.log(profile);
-        localStorage.setItem("profilePicture", profilePicture);
+        
 
         document.getElementById('firstName').value = firstName;
         document.getElementById('lastName').value = lastName;
@@ -26,16 +34,19 @@ function getAccountDetails(){
         document.getElementById('address').value = address;
         document.getElementById('gender').value = gender;
         document.getElementById('phoneNumber').value = phoneNumber;
-        document.getElementById('profilePicture').src = profilePicture;
+       // document.getElementById('profilePicture').src = profilePicture;
         document.getElementById('password').value = userPassword;
         document.getElementById('username').value = username;
 
     }
-
     var payload = { token: token };
     getProfile.send(JSON.stringify(payload));
 })}
 
+function putProfilePictureOnNav(){
+    profilePicture = profile[0].profilePicture;
+    localStorage.setItem("profilePicture", profilePicture)
+}
 
 function deleteAccount() {
     deleteAccountPassword = document.getElementById("deleteAccPassword").value;
@@ -75,12 +86,6 @@ function encode() {
 function update() {
     var updateUser = new XMLHttpRequest();
 
-    updateUser.open("PUT", "http://127.0.0.1:8080/user", true)
-    updateUser.setRequestHeader("Content-Type", "application/json")
-    updateUser.onload = function () {
-        alert("Your credentials has been updated!")
-    }
-
     firstName = document.getElementById("firstName").value;
     lastName = document.getElementById("lastName").value;
     email = document.getElementById("email").value;
@@ -89,7 +94,14 @@ function update() {
     gender = document.getElementById("gender").value;
     phoneNumber = document.getElementById("phoneNumber").value;
 
-
+    updateUser.open("PUT", "http://127.0.0.1:8080/user", true)
+    updateUser.setRequestHeader("Content-Type", "application/json")
+    updateUser.onload = function () {
+        localStorage.setItem("profilePicture", profilePicture)
+        location.reload();
+        document.getElementById("userProfilePic").src =  profilePicture;
+        alert("Your credentials has been updated!")
+    }
     var payload = { firstName: firstName, lastName: lastName, email: email, password: password, address: address, gender: gender, phoneNumber: phoneNumber, profilePicture: profilePicture, token: token }
     updateUser.send(JSON.stringify(payload));
 } 
@@ -132,4 +144,4 @@ function updatePassword() {
         alert("Please fill in all the fields!")
     }
 
-}
+} 

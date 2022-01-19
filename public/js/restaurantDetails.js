@@ -13,7 +13,6 @@ function getDetails() {
     address = sessionStorage.getItem("location")
 
 
-
     document.getElementById("restaurantName").textContent = restaurantName
     document.getElementById("ratingNumber").textContent = averageRating
     document.getElementById("totalReviews").textContent = totalReviews
@@ -84,12 +83,15 @@ function showRestaurantReviews() {
         var datePosted = review_array[i].datePosted;
         var datePosted = datePosted.substring(0,15)
         var comment = review_array[i].comment;
-        if (profilePicture != null || profilePicture != ""){
-            var profilePicture = review_array[i].profilePicture;
+        /*if (profilePicture != null && profilePicture != "" && profilePicture != undefined){
+            profilePicture = review_array[i].profilePicture;
         }
         else{
-            var profilePicture = "images/avatar.jpg"
-        }
+            profilePicture = "images/avatar.jpg"
+        } */
+        var profilePicture = review_array[i].profilePicture;
+        
+
         //document.getElementById("emptyComment").innerHTML = "";
         //selectedMovieId = movie_array[item]._id;
         //star = "";
@@ -114,7 +116,6 @@ function showRestaurantReviews() {
      
         var star = "";
         for (var j = 0; j < userRating; j++) {
-            console.log(i);
             star = `<i id="star1" class="fas fa-star" style="font-size: 18px; color:#B76931"></i>`;
             html += star;
         }
