@@ -122,7 +122,7 @@
             </select>
 
             <!-- Add a review -->
-            <button style="width: 140px; height: 38px; background-color: white; border-width: 1px; cursor: pointer; margin-left: 152px;">
+            <button style="width: 140px; height: 38px; background-color: white; border-width: 1px; cursor: pointer; margin-left: 152px;" data-toggle="modal" data-target="#newReviewModal" onclick="newComment()">
                 <i class="fas fa-plus" style="padding-right: 5px;"></i> Add a review
             </button>
 
@@ -171,9 +171,9 @@
     <!-- Include the comments modal here -->
     <div w3-include-html="comments-modal.html"></div>
     <!-- Include the new comments modal here -->
-    <div w3-include-html="new-comments-modal.html"></div>
+    <div w3-include-html="addReviewModal.html"></div>
     <!-- Include the edit comments modal here -->
-    <div w3-include-html="edit-comments-modal.html"></div>
+    <div w3-include-html="editReviewModal.html"></div>
 
     <div w3-include-html="register-modal.html"></div>
     <div w3-include-html="login-modal.html"></div>

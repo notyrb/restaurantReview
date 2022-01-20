@@ -7,10 +7,11 @@ footer {
     float: right;
     padding-right: 10px;
 }
+
 .navbar-nav > li{
     padding-left:15px;
     padding-right:15px;
-  }
+}
 
 .navbar-brand{
     padding-left: 20px;
@@ -169,6 +170,7 @@ form, input, label, p {
     content: "\f005 \f005 \f005 \f005 \f005";
     color: #f8ce0b;
 }
+
 
 
   

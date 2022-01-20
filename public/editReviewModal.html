@@ -1,0 +1,39 @@
+<div class="modal fade" id="editReviewModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-center">
+                <h3 class="col-12 modal-title text-light">Edit your Review</h3>
+                <button type="button" class="close" data-dismiss="modal"
+                    style="margin-left: -30px; margin-top: -15px; color: white;">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body px-5">
+                <!-- All input to be sent to server, and buttons must be within the 'form' tag -->
+                <form id="commentForm">
+                    <div>
+                        <h5>Rating</h5>
+                        <span>
+                            <i class = "fas fa-star editUserRating" value="1" onmousedown="editRateIt(this)" style="position: relative;color:#D6D6D6;font-size: 20px; cursor: pointer;"></i>
+                            <i class = "fas fa-star editUserRating" value="2" onmousedown="editRateIt(this)" style="position: relative;color:#D6D6D6;font-size: 20px; cursor: pointer;"></i>
+                            <i class = "fas fa-star editUserRating" value="3" onmousedown="editRateIt(this)" style="position: relative;color:#D6D6D6;font-size: 20px; cursor: pointer;"></i>
+                            <i class = "fas fa-star editUserRating" value="4" onmousedown="editRateIt(this)" style="position: relative;color:#D6D6D6;font-size: 20px; cursor: pointer;"></i>
+                            <i class = "fas fa-star editUserRating" value="5" onmousedown="editRateIt(this)" style="position: relative;color:#D6D6D6;font-size: 20px; cursor: pointer;"></i>
+                        </span>
+                    </div>
+                    <h5 style="padding-top: 20px;">Review</h5>
+                    <textarea id="editUserComments" required class="form-control form-rounded" rows="3"
+                        cols="100%" style="width: 100%;"></textarea>
+
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="submitComment"
+                            onClick="updateReview()">Submit</button>
+                        <button type="button" class="btn btn-secondary bg-dark" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

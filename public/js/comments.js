@@ -137,7 +137,6 @@ function changePopcornImage(num, classTarget) {
 //so that the user can attempt to change the username, rating or movie review
 function editComment(element) {
     var item = element.getAttribute("item");
-
     currentIndex = item;
 
     document.getElementById("editnickname").value = comment_array[item].username;
@@ -160,7 +159,7 @@ function displayColorPopcorn(classname, num) {
 function updateComment() {
     var response = confirm("Are you sure you want to update this comment?");
     if (response == true) {
-        var edit_comment_url = comment_url + "/" + comment_array[currentIndex]._id;
+        var edit_comment_url = comment_url + "/" + review-arra[currentIndex]._id;
         var updateComment = new XMLHttpRequest(); // new HttpRequest instance to send request to server
         updateComment.open("PUT", edit_comment_url, true); //The HTTP method called 'PUT' is used here as we are updating data
         updateComment.setRequestHeader("Content-Type", "application/json");

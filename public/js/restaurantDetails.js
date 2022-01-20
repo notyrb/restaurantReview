@@ -1,3 +1,4 @@
+var rating;
 function getDetails() {
     restaurantName = sessionStorage.getItem("restaurantName")
     cuisine = sessionStorage.getItem("cuisine")
@@ -28,7 +29,20 @@ function getDetails() {
     //showStarRating();
     showDollarSigns();
     fetchComments();
+    getRatingInformation();
     
+}
+
+function getRatingInformation(){
+    var restaurantID = sessionStorage.getItem("restaurantID")
+    var getRating = new XMLHttpRequest();
+    getRating.open('GET', "/restaurants/" + restaurantID, true)
+    getRating.onload = function(){
+        restaurantDetails = JSON.parse(getRating.responseText)
+        sessionStorage.setItem("rating", restaurantDetails[0].averageRating.toFixed(1))
+    }
+    getRating.send()
+
 }
 
 
@@ -83,13 +97,12 @@ function showRestaurantReviews() {
         var datePosted = review_array[i].datePosted;
         var datePosted = datePosted.substring(0,15)
         var comment = review_array[i].comment;
-        /*if (profilePicture != null && profilePicture != "" && profilePicture != undefined){
-            profilePicture = review_array[i].profilePicture;
-        }
-        else{
-            profilePicture = "images/avatar.jpg"
-        } */
         var profilePicture = review_array[i].profilePicture;
+        if (profilePicture == "null" || profilePicture == "" || profilePicture == undefined){
+            profilePicture = "images/avatar.jpg"
+        }
+        
+        //var profilePicture = review_array[i].profilePicture;
         
 
         //document.getElementById("emptyComment").innerHTML = "";
@@ -130,11 +143,11 @@ function showRestaurantReviews() {
         <h7 style="margin-left: 450px; margin-top: -90px; max-width: 200px;">${datePosted}</h7> `
 
         if (username == localStorage.getItem("username")){
-            editDeleteButtons =  `<span id = "${reviewID}" class = "editDeleteButtons" style="width:300px; padding-top: 86px; margin-left: 445px;">
-            <span>Edit</span>
-            <i class="fas fa-pencil-alt"></i>
+            editDeleteButtons =  `<span id = "${reviewID}" class = "editDeleteButtons" style="width:300px; padding-top: 86px; margin-left: 445px; cursor:pointer;">
+            <span data-toggle="modal" data-target="#editReviewModal" item=` + i + ` onclick = "editReview(this)">Edit</span>
+            <i class="fas fa-pencil-alt" data-toggle="modal" data-target="#editReviewModal" ></i>
             <span onclick = "deleteReview(this);" deleteReview(this); style="color:#D44848; padding-left: 5px;">Delete</span>
-            <i onclick = "deleteReview(this);" class="fas fa-trash" style="color:#D44848"></i>
+            <i onclick = "deleteReview(this);" class="fas fa-trash" style="color:#D44848;"></i>
             </span> `
             html += editDeleteButtons;
         }
@@ -146,9 +159,151 @@ function showRestaurantReviews() {
     }
 }
 
-function editReview(){
+function newComment() {
+    //Initialise each HTML input elements in the modal window with default value.
+    rating = 0;
+    document.getElementById("userComments").value = "";
+}
+
+
+// Submit or send the new comment to the server to be added.
+function addReview() {
+    var review = new Object();
+    review.restaurantID = sessionStorage.getItem("restaurantID");
+    review.userID = localStorage.getItem("userID");
+    review.comment = document.getElementById("userComments").value;
+    review.userRating = rating;
+
+    if(review.comment == "" || review.userRating == 0){
+        alert("Ensure all the fields are filled up!")
+        return;
+    }
+
+    var postComment = new XMLHttpRequest(); // new HttpRequest instance to send comment
+
+    postComment.open("POST", "/review", true); //Use the HTTP POST method to send data to server
+
+    postComment.setRequestHeader("Content-Type", "application/json");
+    postComment.onload = function () {
+        sessionStorage.setItem("totalReviews", parseInt(totalReviews) +1)
+            getDetails();
+            fetchComments();
+            location.reload();
+    };
+    // Convert the data in Comment object to JSON format before sending to the server.
+    postComment.send(JSON.stringify(review));
+}
+
+//This function allows the user to mouse hover the gray stars
+//so that it will turn to a colored version when hovered
+function rateIt(element) {
+    var num = element.getAttribute("value");
+    console.log(num)
+    var classname = "userRating"
+    var ratings = document.getElementsByClassName(classname);
+    var classTarget = "." + classname;
+
+    // This is another way of writing 'for' loop, which initialises the 
+    // stars to gray
+    for (let rating of ratings) {
+        rating.style.color = "#D6D6D6"
+    }
+    changeStarRatingColour(num, classTarget);
+}
+
+function editRateIt(element) {
+    var num = element.getAttribute("value");
+    console.log(num)
+    var classname = "editUserRating"
+    var ratings = document.getElementsByClassName(classname);
+    var classTarget = "." + classname;
+
+    // This is another way of writing 'for' loop, which initialises the 
+    // stars to gray
+    for (let rating of ratings) {
+        rating.style.color = "#D6D6D6"
+    }
+    changeStarRatingColour(num, classTarget);
+}
+
+// This function sets the rating and coloured stars based on the value of the image tag when  
+// the mouse cursor hovers over the stars.
+function changeStarRatingColour(num, classTarget) {
+    switch (eval(num)) {
+        case 1:
+            document.querySelector(classTarget + "[value='1']").style.color = "#B76931";
+            rating = 1;
+            break;
+        case 2:
+            document.querySelector(classTarget + "[value='1']").style.color = "#B76931";
+            document.querySelector(classTarget + "[value='2']").style.color = "#B76931";
+            rating = 2;
+            break;
+        case 3:
+            document.querySelector(classTarget + "[value='1']").style.color = "#B76931";
+            document.querySelector(classTarget + "[value='2']").style.color = "#B76931";
+            document.querySelector(classTarget + "[value='3']").style.color = "#B76931";
+            rating = 3;
+            break;
+        case 4:
+            document.querySelector(classTarget + "[value='1']").style.color = "#B76931";
+            document.querySelector(classTarget + "[value='2']").style.color = "#B76931";
+            document.querySelector(classTarget + "[value='3']").style.color = "#B76931";
+            document.querySelector(classTarget + "[value='4']").style.color = "#B76931";
+            rating = 4;
+            break;
+        case 5:
+            document.querySelector(classTarget + "[value='1']").style.color = "#B76931";
+            document.querySelector(classTarget + "[value='2']").style.color = "#B76931";
+            document.querySelector(classTarget + "[value='3']").style.color = "#B76931";
+            document.querySelector(classTarget + "[value='4']").style.color = "#B76931";
+            document.querySelector(classTarget + "[value='5']").style.color = "#B76931";
+            rating = 5;
+            break;
+    }
+}
+
+function editReview(element){
+    var item = element.getAttribute("item");
+    document.getElementById("editUserComments").value = review_array[item].comment
+    console.log(review_array[item].userRating)
+    displayColorStars('editUserRating', review_array[item].userRating);
 
 }
+
+//This function displayS the correct number of colored stars
+//based on the restaurant rating that is given in the user review
+function displayColorStars(classname, num) {
+    var userRating = document.getElementsByClassName(classname);
+    var classTarget = "." + classname;
+    for (let rating of userRating) {
+        rating.style.color = "#D6D6D6"
+    }
+    changeStarRatingColour(num, classTarget);
+}
+
+function updateReview() {
+    document.getElementById
+    var response = confirm("Are you sure you want to update this comment?");
+    if (response == true) {
+        console.log(review_array[currentIndex]._id)
+        var editReviewURL = "/review/" + review_array[currentIndex]._id;
+        review_array[currentIndex].comment = document.getElementById("editUserComments").value;
+        review_array[currentIndex].userRating = rating;
+
+        var updateReview = new XMLHttpRequest(); // new HttpRequest instance to send request to server
+        updateReview.open("PUT", editReviewURL, true); //The HTTP method called 'PUT' is used here as we are updating data
+        updateReview.setRequestHeader("Content-Type", "application/json");
+        
+        updateReview.onload = function () {
+            getDetails();
+            fetchComments();
+            location.reload();
+        };
+        updateReview.send(JSON.stringify(review_array[currentIndex]));
+    }
+}
+
 
 // function to delete review
 function deleteReview(element){
@@ -160,9 +315,9 @@ function deleteReview(element){
         var eraseComment = new XMLHttpRequest();
         eraseComment.open("DELETE", review_url, true);
         eraseComment.onload = function() {
+            sessionStorage.setItem("totalReviews", parseInt(totalReviews) -1)
             getDetails();
             fetchComments();
-            showRestaurantReviews();
             location.reload();
         };
         eraseComment.send();

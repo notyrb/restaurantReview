@@ -7,6 +7,7 @@ function getAccountDetails(){
     getProfile.onload = function () {
         var profile = JSON.parse(getProfile.responseText);
 
+        userID = profile[0]._id
         firstName = profile[0].firstName;
         lastName = profile[0].lastName;
         email = profile[0].email;
@@ -17,6 +18,7 @@ function getAccountDetails(){
         userPassword = profile[0].password;
         username = profile[0].username;
         localStorage.setItem("profilePicture", profilePicture);
+        localStorage.setItem("userID", userID);
 
         if (profilePicture != null && profilePicture != "" && profilePicture != undefined){
             document.getElementById("profilePicture").src = profilePicture;
