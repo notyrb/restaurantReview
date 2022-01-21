@@ -1,7 +1,7 @@
 // function to get featured restaurant's details to display in card
-function getFeaturedRestaurants(){
+function getRestaurants(){
     var request = new XMLHttpRequest();
-    request.open('GET', 'http://127.0.0.1:8080/featuredRestaurants', true)
+    request.open('GET', 'http://127.0.0.1:8080/restaurants', true)
     request.onload = function(){
         restaurant_array = JSON.parse(request.responseText);
         console.log(restaurant_array)
@@ -15,7 +15,7 @@ function toSearch(){
 }
 
 function displayRestaurants(){
-    var table = document.getElementById("restaurantsTable");
+    var table = document.getElementById("restaurantTable");
     table.innerHTML = "";
     totalRestaurants = restaurant_array.length;
 
@@ -26,12 +26,11 @@ function displayRestaurants(){
         var totalReviews = restaurant_array[count].totalReviews;
         var averageRating = restaurant_array[count].averageRating;
         var averageRating = averageRating.toFixed(1);
-        var totalFavourites = restaurant_array[count].totalFavourites;
         var cuisine = restaurant_array[count].cuisine;
         var price = restaurant_array[count].price;
         var regionName = restaurant_array[count].regionName;
         var thumbnail = restaurant_array[count].thumbnail;
-        var cell = '<div id = '+restaurantID+' class="card col-md-3" onClick="getRestaurantDetails(this)" style = "margin:30px" >\
+        var cell = '<div id = '+restaurantID+' class="card col-md-3" onClick="getRestaurantDetails(this)" style = "margin:20px" >\
                         <img class="card-img-top" src="' + thumbnail + '" alt="Card image cap" style = "margin-left: -13.5px; width: 260px; height: 150px; cursor:pointer">\
                         <h5 style="padding-left:-20px; padding-top: 20px; font-family: Proxima Nova; font-size:21px; cursor:pointer" class="card-title" item="' + count + '">' + restaurantName + '</h5>\
                         <h7 style="padding-left:-20px; margin-top: -5px; font-family: Proxima Nova; font-size:15px; cursor:pointer" class="card-title" item="' + count + '">' + averageRating + '</h7>\
@@ -40,11 +39,8 @@ function displayRestaurants(){
                         <h7 style=" color: #000000; padding-left: -20px; margin-top: -6px; font-family: Proxima Nova; font-size:15px; cursor:pointer" class="card-title" item="' + count + '" >' + cuisine + " • "+ price + " • "+ regionName +' </h7>\
                         \
                     </div>'
-        table.insertAdjacentHTML('beforeend', cell);
-       // movieCount++;
-        
+        table.insertAdjacentHTML('beforeend', cell);  
     }
-
 }
 
 function getRestaurantDetails(element) {

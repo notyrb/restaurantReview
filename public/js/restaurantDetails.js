@@ -13,8 +13,6 @@ function getDetails() {
     openingHours = sessionStorage.getItem("openingHours")
     address = sessionStorage.getItem("location")
 
-
-
     document.getElementById("restaurantName").textContent = restaurantName
     document.getElementById("ratingNumber").textContent = averageRating
     document.getElementById("totalReviews").textContent = totalReviews
@@ -228,9 +226,6 @@ function newComment() {
         document.getElementById("userComments").value = "";
         var token =  sessionStorage.getItem("token")
     } 
-}
-
-function postReview(){
 }
 
 // Submit or send the new comment to the server to be added.
