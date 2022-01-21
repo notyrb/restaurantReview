@@ -89,6 +89,9 @@ function getRestaurantDetails(element) {
         sessionStorage.setItem('totalReviews', restaurantDetails[0].totalReviews);
         sessionStorage.setItem('totalFavourites', restaurantDetails[0].totalFavourites);
         sessionStorage.setItem('openingHours', restaurantDetails[0].openingHours);
+        sessionStorage.setItem('longtitude', restaurantDetails[0].longtitude);
+        sessionStorage.setItem('latitude', restaurantDetails[0].latitude);
+        sessionStorage.setItem('regionName', restaurantDetails[0].regionName);
         window.location.href = 'restaurant.html'
         
     }

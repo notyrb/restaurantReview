@@ -14,6 +14,7 @@ function getDetails() {
     address = sessionStorage.getItem("location")
 
 
+
     document.getElementById("restaurantName").textContent = restaurantName
     document.getElementById("ratingNumber").textContent = averageRating
     document.getElementById("totalReviews").textContent = totalReviews
@@ -31,6 +32,60 @@ function getDetails() {
     fetchComments();
     getRatingInformation();
     
+}
+
+function showMap(){
+    longtitude = sessionStorage.getItem("longtitude")
+    latitude = sessionStorage.getItem("latitude")
+    regionName = sessionStorage.getItem("regionName")
+    restaurantName = sessionStorage.getItem("restaurantName")
+    var locations = [longtitude,latitude,regionName,restaurantName]
+    console.log(locations)
+    map = new google.maps.Map(document.getElementById("map"),{center:{lat:1.8, lng:110.9},zoom:4});
+    var infowindow = new google.maps.InfoWindow();
+    var marker, i;
+    var markers = [];
+
+    marker = new google.maps.Marker({
+        position : new google.maps.LatLng(locations[0], locations[1]),
+        map:map, 
+        icon:{
+            url: "http://maps.google.com/mapfiles/ms/icons/restaurant.png"
+        }
+    });
+
+    markers.push(marker);
+    google.maps.event.addListener(marker, 'click', (function (marker,i){
+        return function(){
+            infowindow.setContent(locations[3] + " " +locations[2]);
+            infowindow.open(map,marker);
+        }
+    })(marker,i));
+
+    navigator.geolocation.getCurrentPosition(
+        (position) =>{
+                const pos = {
+                    lat:position.coords.latitude,
+                    lng:position.coords.longitude
+                }
+                map.setCenter(pos);
+                map.setZoom(15);
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(pos.lat, pos.lng),
+                    map:map,
+                    icon: {
+                        url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                    }
+                })
+
+                 markers.push(marker);
+                 google.maps.event.addListener(marker, 'click', (function (marker,i){
+                    return function(){
+                        infowindow.setContent("Your current location");
+                        infowindow.open(map,marker);
+                    }
+                })(marker,i));
+        })
 }
 
 function getRatingInformation(){
@@ -160,11 +215,23 @@ function showRestaurantReviews() {
 }
 
 function newComment() {
-    //Initialise each HTML input elements in the modal window with default value.
-    rating = 0;
-    document.getElementById("userComments").value = "";
+    token = sessionStorage.getItem("token")
+    if (token == null ){
+        alert("You must be logged in to post a review!")
+        return
+    }
+    else if (token != null){
+        document.getElementById("addReviewBtn").setAttribute("data-target","#newReviewModal")
+        document.getElementById("addReviewBtn").setAttribute("data-toggle","modal")
+        //Initialise each HTML input elements in the modal window with default value.
+        rating = 0;
+        document.getElementById("userComments").value = "";
+        var token =  sessionStorage.getItem("token")
+    } 
 }
 
+function postReview(){
+}
 
 // Submit or send the new comment to the server to be added.
 function addReview() {
@@ -189,6 +256,7 @@ function addReview() {
             getDetails();
             fetchComments();
             location.reload();
+            window.scrollTo(0, 0);
     };
     // Convert the data in Comment object to JSON format before sending to the server.
     postComment.send(JSON.stringify(review));
@@ -283,7 +351,11 @@ function displayColorStars(classname, num) {
 }
 
 function updateReview() {
-    document.getElementById
+    if( document.getElementById("editUserComments").value == "" || rating == 0){
+        alert("Ensure all the fields are filled up!")
+        return;
+    }
+
     var response = confirm("Are you sure you want to update this comment?");
     if (response == true) {
         console.log(review_array[currentIndex]._id)
@@ -299,6 +371,7 @@ function updateReview() {
             getDetails();
             fetchComments();
             location.reload();
+            window.scrollTo(0, 0);
         };
         updateReview.send(JSON.stringify(review_array[currentIndex]));
     }
@@ -317,8 +390,10 @@ function deleteReview(element){
         eraseComment.onload = function() {
             sessionStorage.setItem("totalReviews", parseInt(totalReviews) -1)
             getDetails();
+            getRatingInformation();
             fetchComments();
             location.reload();
+            window.scrollTo(0, 0);
         };
         eraseComment.send();
     }
