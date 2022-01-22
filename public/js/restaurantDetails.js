@@ -326,6 +326,39 @@ function changeStarRatingColour(num, classTarget) {
     }
 }
 
+function sortReviews(order){
+    console.log(order)
+    // sort by oldest reviews
+    if (order == "oldest"){
+        review_array.sort(function(a,b) {
+            return a._id - b._id;
+        });
+        showRestaurantReviews();
+    }
+    // sort by newest reviews   
+    else if (order == "newest"){
+        review_array.sort(function(a,b) {
+            return b._id - a._id;
+        });
+        showRestaurantReviews();
+    }
+    // sort reviews by highest rating  
+    else if (order == "highestRating"){
+        review_array.sort(function(a,b) {
+            return b.userRating - a.userRating;
+        });
+        showRestaurantReviews();
+    }
+    // sort reviews by lowest rating  
+    else if (order == "lowestRating"){
+        review_array.sort(function(a,b) {
+            return a.userRating - b.userRating;
+        });
+        showRestaurantReviews();
+    }
+    
+}
+
 function editReview(element){
     var item = element.getAttribute("item");
     document.getElementById("editUserComments").value = review_array[item].comment

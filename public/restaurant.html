@@ -72,7 +72,7 @@
                 <span id="ratingNumber"
                     style="font-family: Proxima Nova; padding-left: 10px; margin-top: -24px; font-weight: normal; font-size: 20px;"></span>
                 <i id="star" class="fas fa-star" style="font-size: 18px; color: #B76931"></i>
-                
+
                 <!-- Reviews-->
                 <span style="padding-left: 30px;">
                     <i class="far fa-comment-alt" style="font-size:18px; "></i>
@@ -111,7 +111,7 @@
             <!-- Sort reviews -->
             <h5 style="padding: 20px 0px 0px 50px; font-size:20px;">Sort by</h5>
             <label for="sortReviews" style="padding: 0px 0px 0px 45px;"></label>
-            <select name="sortReviews" id="sortReviews" style="width: 285px; height:38px; padding-left: 10px;">
+            <select name="sortReviews" id="sortReviews" onchange = "sortReviews(value)" style="width: 285px; height:38px; padding-left: 10px;">
                 <option value="newest">Newest</option>
                 <option value="oldest">Oldest</option>
                 <option value="highestRating">Highest Rating</option>
