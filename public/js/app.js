@@ -7,6 +7,7 @@ var category = "Now Showing";
 var currentIndex=0;
 var comment_url = "/review";
 var comment_array = []; // This creates an empty comment array
+var cuisineArray = []
 
 var popcornBWImage = 'images/popcorn_bw.png';
 var popcornImage = 'images/popcorn.png';

@@ -66,7 +66,7 @@
 
             <h3 id="restaurantName" style="font-weight: bold; font-size: 35px; padding-top: 20px;"></h3>
             <hr
-                style="width: 570px; height:0.5px; border-width:0; background-color:#707070; margin-left: 0px; margin-top: 20px;">
+                style="width: 580px; height:0.5px; border-width:0; background-color:#707070; margin-left: 0px; margin-top: 20px;">
             <div style="margin-top: 8px;">
                 <!-- rating-->
                 <span id="ratingNumber"
@@ -93,9 +93,16 @@
                     <i id="dollar3" class="fas fa-dollar-sign" style="color: lightgray;"></i>
                 </span>
             </div>
+
             <!-- Description-->
             <div>
-                <h3 style="padding-top: 40px; font-weight: bolder;">About the restaurant</h3>
+                <h3 style="padding-top: 40px; font-weight: bolder; margin-bottom: -35px;">About the restaurant</h3>
+                <!-- Favourites-->
+                <span>
+                    <button id ="favouriteBtn" style="width: fit-content; height: 38px; background-color: white; border-width: 1px; cursor: pointer; margin-left: 425px;" onclick="addDeleteFavourites()">
+                        <i class="far fa-heart" style="padding-right: 5px;"></i>Add to favourites
+                    </button>
+                </span>
                 <div id="description" style="width: 570px; padding-top: 15px; padding-bottom: 40px;"></div>
             </div>
             <!-- Ratings and Reviews-->
@@ -196,6 +203,8 @@
 <script src="js/checktoken.js"></script>
 <script>getAccountDetails()</script>
 <script>showMap()</script>
+<script>checkFavourites()</script>
+
 
 
 

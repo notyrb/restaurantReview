@@ -9,54 +9,41 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+
     <script>
         token = sessionStorage.getItem('token');
+        var map, infoWindow;
     </script>
-
-
-
+    
 </head>
 
-<body onload="getFeaturedRestaurants()" style="background-color: #EEEEEE;">
+<body onload="getFavourites()" style="background-color: #EEEEEE;" >
     <!-- Include top navigation here -->
     <div w3-include-html="top-navigation.html"></div>
     <!-- This is the container that holds the initial message, heading, and movies -->
-
-    <div class="mainBox">
-        <img id="mainImage"
-            src="https://media.gq-magazine.co.uk/photos/60d5ac0ebb8986e188ac69e6/master/pass/24062021_food_hp.jpg"
-            style="width: 1550px; height: 860px;">
+    <div class="mainBox" >
+        <img src = "https://www.santinospizzaparlor.com/static/files/spaghetti6.jpg" style="width: 1535px; height: 200px;"></img>
         <div class="text">
-            <h1>Ready to dig in?</h1>
+            <h1 style="color: white; text-align: center; font-weight: bold; font-size: 60px;">Favourites</h1>
         </div>
-        <div class="text1">
-            <h0>The Best Food in <br>
-                Singapore Awaits You</h0>
-        </div>
-        <div class="searchBox" onclick="toSearch()" style="cursor: pointer;" >
-            <div class="textSearch" >
-                <h4>Click here to search for more restaurants!</h4>
-            </div>
-            <i class="fas fa-search" style="position:relative; font-size:20px; padding-left: 3.8%; bottom: 32px;" ></i>
-        </div>
-    </div> 
-    <div class="container" style="background-color: white; width: 1200px; height: fit-content; margin-top: -20px;">
-        <p>
-        <h3 style="padding-top: 40px; padding-left: 100px; font-family: Proxima Nova; font-weight: bold;">Featured Restaurants</h3>
-        </p>
-        <hr style="margin-top:30px; width: 950px; height:0.5px; border-width:0;color:gray;background-color:gray">
-
-        <!-- Displays thumbnails of the restaurants here -->
-        <div id="restaurantsTable" class="row" style="padding-top : 5px; padding-left: 80px;"></div>
-    </div>
-
-
-
-    <div w3-include-html="register-modal.html"></div> 
-    <div w3-include-html="login-modal.html"></div> 
-
-
     
+    </div>
+    <div class="container" style="background-color: white; width: 1200px; height: fit-content;">
+        <div id="favRestTable" class="row" style="padding-top : 10px; padding-left: 80px;"></div>
+            
+        
+    </div>
+    
+    <!-- Include the comments modal here -->
+    <div w3-include-html="comments-modal.html"></div>
+    <!-- Include the new comments modal here -->
+    <div w3-include-html="addReviewModal.html"></div>
+    <!-- Include the edit comments modal here -->
+    <div w3-include-html="editReviewModal.html"></div>
+    <div w3-include-html="register-modal.html"></div>
+    <div w3-include-html="login-modal.html"></div>
+
+
 
     <br><br>
     <!-- Include the footer here -->
@@ -72,13 +59,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/86ec7c1143.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvlr9Xo6bH0wunhgQ81__K6DIddiKd7H0"></script>
 <script src="js/app.js"></script>
 <script src="js/comments.js"></script>
 <script src="js/restaurants.js"></script>
+<script src="js/restaurantDetails.js"></script>
 <script src="js/register.js"></script>
 <script src="js/profile.js"></script>
 <script src="js/checktoken.js"></script>
-<script>getAccountDetails()</script>
+<script src="js/search.js"></script>
+<script src="js/favourites.js"></script>
 
 
 

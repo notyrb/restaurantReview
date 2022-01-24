@@ -30,8 +30,9 @@ function addToFavourites(request, respond){
     });
 }
 function deleteFavourite(request, respond){
-    var favouriteID = request.params.id;
-    favouritesDB.deleteFavourite(favouriteID, function(error, result){
+    var favouriteUserID = request.body.favouriteUserID;
+    var favouriteRestaurantID = request.body.favouriteRestaurantID;
+    favouritesDB.deleteFavourite(favouriteUserID,favouriteRestaurantID, function(error, result){
         if(error){
             respond.json(error);
         }

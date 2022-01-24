@@ -29,68 +29,68 @@ function getDetails() {
     showDollarSigns();
     fetchComments();
     getRatingInformation();
-    
+
 }
 
-function showMap(){
+function showMap() {
     longtitude = sessionStorage.getItem("longtitude")
     latitude = sessionStorage.getItem("latitude")
     regionName = sessionStorage.getItem("regionName")
     restaurantName = sessionStorage.getItem("restaurantName")
-    var locations = [longtitude,latitude,regionName,restaurantName]
+    var locations = [longtitude, latitude, regionName, restaurantName]
     console.log(locations)
-    map = new google.maps.Map(document.getElementById("map"),{center:{lat:1.8, lng:110.9},zoom:4});
+    map = new google.maps.Map(document.getElementById("map"), { center: { lat: 1.8, lng: 110.9 }, zoom: 4 });
     var infowindow = new google.maps.InfoWindow();
     var marker, i;
     var markers = [];
 
     marker = new google.maps.Marker({
-        position : new google.maps.LatLng(locations[0], locations[1]),
-        map:map, 
-        icon:{
+        position: new google.maps.LatLng(locations[0], locations[1]),
+        map: map,
+        icon: {
             url: "http://maps.google.com/mapfiles/ms/icons/restaurant.png"
         }
     });
 
     markers.push(marker);
-    google.maps.event.addListener(marker, 'click', (function (marker,i){
-        return function(){
-            infowindow.setContent(locations[3] + " " +locations[2]);
-            infowindow.open(map,marker);
+    google.maps.event.addListener(marker, 'click', (function (marker, i) {
+        return function () {
+            infowindow.setContent(locations[3] + " " + locations[2]);
+            infowindow.open(map, marker);
         }
-    })(marker,i));
+    })(marker, i));
 
     navigator.geolocation.getCurrentPosition(
-        (position) =>{
-                const pos = {
-                    lat:position.coords.latitude,
-                    lng:position.coords.longitude
+        (position) => {
+            const pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            }
+            map.setCenter(pos);
+            map.setZoom(15);
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(pos.lat, pos.lng),
+                map: map,
+                icon: {
+                    url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
                 }
-                map.setCenter(pos);
-                map.setZoom(15);
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(pos.lat, pos.lng),
-                    map:map,
-                    icon: {
-                        url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
-                    }
-                })
+            })
 
-                 markers.push(marker);
-                 google.maps.event.addListener(marker, 'click', (function (marker,i){
-                    return function(){
-                        infowindow.setContent("Your current location");
-                        infowindow.open(map,marker);
-                    }
-                })(marker,i));
+            markers.push(marker);
+            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                return function () {
+                    infowindow.setContent("Your current location");
+                    infowindow.open(map, marker);
+                }
+            })(marker, i));
         })
 }
 
-function getRatingInformation(){
+function getRatingInformation() {
     var restaurantID = sessionStorage.getItem("restaurantID")
     var getRating = new XMLHttpRequest();
     getRating.open('GET', "/restaurants/" + restaurantID, true)
-    getRating.onload = function(){
+    getRating.onload = function () {
         restaurantDetails = JSON.parse(getRating.responseText)
         sessionStorage.setItem("rating", restaurantDetails[0].averageRating.toFixed(1))
     }
@@ -148,55 +148,39 @@ function showRestaurantReviews() {
         var username = review_array[i].username;
         var userRating = review_array[i].userRating;
         var datePosted = review_array[i].datePosted;
-        var datePosted = datePosted.substring(0,15)
+        var datePosted = datePosted.substring(0, 15)
         var comment = review_array[i].comment;
         var profilePicture = review_array[i].profilePicture;
-        if (profilePicture == "null" || profilePicture == "" || profilePicture == undefined){
+        if (profilePicture == "null" || profilePicture == "" || profilePicture == undefined) {
             profilePicture = "images/avatar.jpg"
         }
-        
-        //var profilePicture = review_array[i].profilePicture;
-        
-
-        //document.getElementById("emptyComment").innerHTML = "";
-        //selectedMovieId = movie_array[item]._id;
-        //star = "";
-        var html =  `<div class="card" style="width: 580px; height: 150px; outline: 1px;">
+        var html = `<div class="card" style="width: 580px; height: 150px; outline: 1px;">
         <div class="col-2" style="text-align: center; padding-left:30px; padding-top: 25px;">`
-        /*if (profilePicture != null || profilePicture != ""){
-            image = `<img src="${profilePicture}"
-                style="width: 60px; height: 60px; border-radius: 50%; ">`
-            html += image;
-        }
-        else{
-            image = `<img src="images/avatar.jpg"
-                style="width: 60px; height: 60px; border-radius: 50%; ">`
-            html += image;
-        } */
+        
         html += `<img src="${profilePicture}"
         style="width: 60px; height: 60px; border-radius: 50%; ">`
         html += `<h5 style="font-size: 14px; width: 63px; padding-bottom: 15px; padding-top: 7px; "> ${username}
             </h5>
         </div> 
         <div class ="col-md-6" style = "padding-left:150px; margin-top: -3px;"> `
-     
+
         var star = "";
         for (var j = 0; j < userRating; j++) {
             star = `<i id="star1" class="fas fa-star" style="font-size: 18px; color:#B76931"></i>`;
             html += star;
         }
-        if( 5 -userRating != 0){
-            for (var index = 0; index < 5 -userRating; index++) {
+        if (5 - userRating != 0) {
+            for (var index = 0; index < 5 - userRating; index++) {
                 star = `<i id="star1" class="fas fa-star" style="font-size: 18px; color:#E8E3DF"></i>`;
                 html += star;
             }
-        }  
-        html+= `<h6 style="padding-top:8px; width: 400px;">${comment}</h6>
+        }
+        html += `<h6 style="padding-top:8px; width: 400px;">${comment}</h6>
         </div>
         <h7 style="margin-left: 450px; margin-top: -90px; max-width: 200px;">${datePosted}</h7> `
 
-        if (username == localStorage.getItem("username")){
-            editDeleteButtons =  `<span id = "${reviewID}" class = "editDeleteButtons" style="width:300px; padding-top: 86px; margin-left: 445px; cursor:pointer;">
+        if (username == localStorage.getItem("username")) {
+            editDeleteButtons = `<span id = "${reviewID}" class = "editDeleteButtons" style="width:300px; padding-top: 86px; margin-left: 445px; cursor:pointer;">
             <span data-toggle="modal" data-target="#editReviewModal" item=` + i + ` onclick = "editReview(this)">Edit</span>
             <i class="fas fa-pencil-alt" data-toggle="modal" data-target="#editReviewModal" ></i>
             <span onclick = "deleteReview(this);" deleteReview(this); style="color:#D44848; padding-left: 5px;">Delete</span>
@@ -204,9 +188,9 @@ function showRestaurantReviews() {
             </span> `
             html += editDeleteButtons;
         }
-        else{
-            var empty =` </div></div>`
-            html+= empty  
+        else {
+            var empty = ` </div></div>`
+            html += empty
         }
         reviews.insertAdjacentHTML('beforeend', html);
     }
@@ -214,18 +198,17 @@ function showRestaurantReviews() {
 
 function newComment() {
     token = sessionStorage.getItem("token")
-    if (token == null ){
+    if (token == null) {
         alert("You must be logged in to post a review!")
         return
     }
-    else if (token != null){
-        document.getElementById("addReviewBtn").setAttribute("data-target","#newReviewModal")
-        document.getElementById("addReviewBtn").setAttribute("data-toggle","modal")
+    else if (token != null) {
+        document.getElementById("addReviewBtn").setAttribute("data-target", "#newReviewModal")
+        document.getElementById("addReviewBtn").setAttribute("data-toggle", "modal")
         //Initialise each HTML input elements in the modal window with default value.
         rating = 0;
         document.getElementById("userComments").value = "";
-        var token =  sessionStorage.getItem("token")
-    } 
+    }
 }
 
 // Submit or send the new comment to the server to be added.
@@ -236,7 +219,7 @@ function addReview() {
     review.comment = document.getElementById("userComments").value;
     review.userRating = rating;
 
-    if(review.comment == "" || review.userRating == 0){
+    if (review.comment == "" || review.userRating == 0) {
         alert("Ensure all the fields are filled up!")
         return;
     }
@@ -247,11 +230,11 @@ function addReview() {
 
     postComment.setRequestHeader("Content-Type", "application/json");
     postComment.onload = function () {
-        sessionStorage.setItem("totalReviews", parseInt(totalReviews) +1)
-            getDetails();
-            fetchComments();
-            location.reload();
-            window.scrollTo(0, 0);
+        sessionStorage.setItem("totalReviews", parseInt(totalReviews) + 1)
+        getDetails();
+        fetchComments();
+        location.reload();
+        window.scrollTo(0, 0);
     };
     // Convert the data in Comment object to JSON format before sending to the server.
     postComment.send(JSON.stringify(review));
@@ -326,40 +309,40 @@ function changeStarRatingColour(num, classTarget) {
     }
 }
 
-function sortReviews(order){
+function sortReviews(order) {
     console.log(order)
     // sort by oldest reviews
-    if (order == "oldest"){
-        review_array.sort(function(a,b) {
+    if (order == "oldest") {
+        review_array.sort(function (a, b) {
             return a._id - b._id;
         });
         showRestaurantReviews();
     }
     // sort by newest reviews   
-    else if (order == "newest"){
-        review_array.sort(function(a,b) {
+    else if (order == "newest") {
+        review_array.sort(function (a, b) {
             return b._id - a._id;
         });
         showRestaurantReviews();
     }
     // sort reviews by highest rating  
-    else if (order == "highestRating"){
-        review_array.sort(function(a,b) {
+    else if (order == "highestRating") {
+        review_array.sort(function (a, b) {
             return b.userRating - a.userRating;
         });
         showRestaurantReviews();
     }
     // sort reviews by lowest rating  
-    else if (order == "lowestRating"){
-        review_array.sort(function(a,b) {
+    else if (order == "lowestRating") {
+        review_array.sort(function (a, b) {
             return a.userRating - b.userRating;
         });
         showRestaurantReviews();
     }
-    
+
 }
 
-function editReview(element){
+function editReview(element) {
     var item = element.getAttribute("item");
     document.getElementById("editUserComments").value = review_array[item].comment
     console.log(review_array[item].userRating)
@@ -379,7 +362,7 @@ function displayColorStars(classname, num) {
 }
 
 function updateReview() {
-    if( document.getElementById("editUserComments").value == "" || rating == 0){
+    if (document.getElementById("editUserComments").value == "" || rating == 0) {
         alert("Ensure all the fields are filled up!")
         return;
     }
@@ -394,7 +377,7 @@ function updateReview() {
         var updateReview = new XMLHttpRequest(); // new HttpRequest instance to send request to server
         updateReview.open("PUT", editReviewURL, true); //The HTTP method called 'PUT' is used here as we are updating data
         updateReview.setRequestHeader("Content-Type", "application/json");
-        
+
         updateReview.onload = function () {
             getDetails();
             fetchComments();
@@ -407,16 +390,16 @@ function updateReview() {
 
 
 // function to delete review
-function deleteReview(element){
+function deleteReview(element) {
     var response = confirm("Are you sure you want to delete this review?");
 
-    if (response == true){
+    if (response == true) {
         var reviewID = element.parentNode.id
         var review_url = "review/" + reviewID;
         var eraseComment = new XMLHttpRequest();
         eraseComment.open("DELETE", review_url, true);
-        eraseComment.onload = function() {
-            sessionStorage.setItem("totalReviews", parseInt(totalReviews) -1)
+        eraseComment.onload = function () {
+            sessionStorage.setItem("totalReviews", parseInt(totalReviews) - 1)
             getDetails();
             getRatingInformation();
             fetchComments();
@@ -425,4 +408,81 @@ function deleteReview(element){
         };
         eraseComment.send();
     }
+}
+// add restaurants to user's favourites
+function addToFavourites() {
+    token = sessionStorage.getItem("token")
+    if (token == null) {
+        alert("You must be logged in to add this restaurant to favourites!")
+        return
+    }
+    else if (token != null) {
+        var favourite = new Object();
+        favourite.favouriteUserID = localStorage.getItem("userID");
+        favourite.favouriteRestaurantID = sessionStorage.getItem("restaurantID");       
+        var addFavourite = new XMLHttpRequest();
+        addFavourite.open("POST", "/favourites", true);
+        addFavourite.setRequestHeader("Content-Type", "application/json");
+        addFavourite.onload = function () {
+            checkFavourites();
+        }
+        addFavourite.send(JSON.stringify(favourite));
+    }
+}
+function deleteFavourite(){
+    var response = confirm("Are you sure you want to delete this restaurant from your favourites? ")
+    if (response == true){
+        var favourite = new Object();
+        favourite.favouriteUserID = localStorage.getItem("userID");
+        favourite.favouriteRestaurantID = sessionStorage.getItem("restaurantID");  
+        var deleteFavourite = new XMLHttpRequest();  
+        deleteFavourite.open("DELETE", "/favourites", true);
+        deleteFavourite.setRequestHeader("Content-Type", "application/json");
+        deleteFavourite.onload = function () {
+            location.reload()
+        }
+        deleteFavourite.send(JSON.stringify(favourite));
+    }
+}
+// check if user has already favourited this restaurant, and show the appropriate icons
+function checkFavourites(){
+    var checkFavourites = new XMLHttpRequest();
+    var userID = localStorage.getItem("userID")
+    var restaurantID = sessionStorage.getItem("restaurantID")
+    var favBtn = document.getElementById("favouriteBtn")
+    checkFavourites.open("GET","/favourites/"+ userID, true);
+    checkFavourites.onload = function(){
+        favourites_array = JSON.parse(checkFavourites.responseText);
+        for (let index = 0; index < favourites_array.length; index++) {
+            if (favourites_array[index]._id == restaurantID){
+                favBtn.style.marginLeft = "380px"
+                favBtn.style.border = "none"
+                favBtn.style.outline = "none"
+                favBtn.style.backgroundColor = "#FBA2A2"
+                favBtn.innerHTML = '<i class="fas fa-heart" style="padding-right: 5px; color:white"></i><span style= "color:white">Remove from favourites</span>'
+                return
+            }    
+        }
+        favBtn.style.backgroundColor = "white"
+        favBtn.innerHTML = '<i class="far fa-heart" style="padding-right: 5px;"></i>Add to favourites'
+    }
+    checkFavourites.send();
+}
+function addDeleteFavourites(){
+    var request = new XMLHttpRequest();
+    var userID = localStorage.getItem("userID")
+    var restaurantID = sessionStorage.getItem("restaurantID")
+    request.open("GET","/favourites/"+ userID, true);
+    request.onload = function(){
+        favourites_array = JSON.parse(request.responseText);
+        console.log(favourites_array)
+        for (var index = 0; index < favourites_array.length; index++) {
+            if (favourites_array[index]._id == restaurantID){
+                deleteFavourite();
+                return
+            }
+        }
+        addToFavourites();
+    }
+    request.send();
 }

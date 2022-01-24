@@ -13,12 +13,21 @@ function getFeaturedRestaurants(){
 function toSearch(){
     window.location = "search.html"
 }
+function toFavourites(){
+    token = sessionStorage.getItem("token");
+    if (token == null){
+        alert("You must be logged in to access your favourites!")
+        return
+    }
+    else{
+        window.location = "favourites.html"
+    }
+}
 
 function displayRestaurants(){
     var table = document.getElementById("restaurantsTable");
     table.innerHTML = "";
     totalRestaurants = restaurant_array.length;
-
 
     for (var count = 0; count < totalRestaurants; count++) {
         var restaurantID = restaurant_array[count]._id;
@@ -26,7 +35,6 @@ function displayRestaurants(){
         var totalReviews = restaurant_array[count].totalReviews;
         var averageRating = restaurant_array[count].averageRating;
         var averageRating = averageRating.toFixed(1);
-        var totalFavourites = restaurant_array[count].totalFavourites;
         var cuisine = restaurant_array[count].cuisine;
         var price = restaurant_array[count].price;
         var regionName = restaurant_array[count].regionName;

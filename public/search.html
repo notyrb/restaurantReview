@@ -34,20 +34,19 @@
             <h4 style="text-align:center; font-family: Proxima Nova; font-weight: bold; padding-top: 10px; font-size: 23px;">Filters</h4>
             <hr style="margin-top:15px; width: 250px; height:0.5px; border-width:0; background-color:gray">
             <h5 style="float:left; font-family: Proxima Nova; font-weight: bold;  padding-left:25px; color: gray;">Cuisine</h5>
-            <div style="padding-top: 40px; padding-left: 20px;">
+            <div style="padding-top: 40px; padding-left: 20px;" onclick="getFilteredRestaurants()">
                 <label class="container checkBox" >Japanese
-                   
-                    <input type="checkbox" class="cuisineCheckBox" value= "japanese" onchange="getFilteredRestaurants()">
+                    <input type="checkbox" class="cuisineCheckBox" value= "japanese" >
                     <span class="checkmark"></span>
                 </label>
                   
                 <label class="container checkBox" >Chinese
-                    <input type="checkbox" class="cuisineCheckBox" value= "chinese" onchange="getFilteredRestaurants(this.value)">
+                    <input type="checkbox" class="cuisineCheckBox" value= "chinese" >
                     <span class="checkmark"></span>
                 </label>
                   
                 <label class="container checkBox">Vietnamese
-                    <input type="checkbox" class="cuisineCheckBox" value= "vietnamese" onchange="getFilteredRestaurants(this.value)">
+                    <input type="checkbox" class="cuisineCheckBox" value= "vietnamese" >
                     <span class="checkmark"></span>
                 </label>
                   
@@ -106,5 +105,6 @@
 <script src="js/search.js"></script>
 <script>getAccountDetails()</script>
 <script>getSearchedRestaurants()</script>
+
 
 </html>

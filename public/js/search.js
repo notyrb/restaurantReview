@@ -17,9 +17,35 @@ function getSearchedRestaurants() {
         search.send(JSON.stringify(payload));
     })
 }
-function getFilteredRestaurants(){
-    var filteredCuisine = document.querySelector('.checkBox .cuisineCheckBox:checked').value;
-    console.log(filteredCuisine)
+function getFilteredRestaurants() {
+    var filteredCuisines = document.querySelectorAll('.cuisineCheckBox');
+    for (var cuisine of filteredCuisines) {
+        cuisine.addEventListener('click', function () {
+            if (this.checked == true) {
+                cuisineArray.push(this.value);
+            }
+            else {
+                cuisineArray = cuisineArray.filter(e => e !== this.value)
+            }
+        })
+    }
+
+    for (var i = 0; i < cuisineArray.length; i++) {
+        if (cuisineArray[i] == "japanese" || cuisineArray[i] == "chinese" || cuisineArray[i] == "vietnamese") {
+            var search = new XMLHttpRequest();
+            search.open('POST', 'http://127.0.0.1:8080/cuisine', true)
+            search.setRequestHeader("Content-type", "application/json")
+            search.onload = function () {
+                restaurant_array = JSON.parse(search.responseText);
+                console.log(restaurant_array)
+                displayRestaurants();
+            }
+
+            var payload = { cuisine: cuisineArray[i] }
+            search.send(JSON.stringify(payload));
+        }
+    }
+
 }
 
 function getAllRestaurants() {
