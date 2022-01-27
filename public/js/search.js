@@ -44,6 +44,10 @@ function getFilteredRestaurants() {
             var payload = { cuisine: cuisineArray[i] }
             search.send(JSON.stringify(payload));
         }
+        else if (cuisineArray[i]== null){
+            displayRestaurants();
+        }
+    
     }
 
 }

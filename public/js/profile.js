@@ -85,6 +85,27 @@ function encode() {
     }
 }
 
+const dropImage = document.querySelector("#dropImage");
+dropImage.addEventListener('dragover', (event)=> {
+    event.stopPropagation();
+    event.preventDefault();
+});
+dropImage.addEventListener('drop', (event)=> {
+    event.stopPropagation();
+    event.preventDefault();
+    const fileList = event.dataTransfer.files;
+    readImage(fileList[0]);
+});
+readImage = (file) => {
+    const reader = new FileReader();
+    reader.addEventListener('load', (event) =>{
+        picture = event.target.result;
+        console.log(picture);
+        document.getElementById('profilePicture').src = picture;
+    });
+    reader.readAsDataURL(file);
+}
+
 function update() {
     var updateUser = new XMLHttpRequest();
 
@@ -95,6 +116,8 @@ function update() {
     address = document.getElementById("address").value;
     gender = document.getElementById("gender").value;
     phoneNumber = document.getElementById("phoneNumber").value;
+    profilePicture = document.getElementById("profilePicture").src;
+    console.log(profilePicture)
 
     updateUser.open("PUT", "http://127.0.0.1:8080/user", true)
     updateUser.setRequestHeader("Content-Type", "application/json")
@@ -145,5 +168,5 @@ function updatePassword() {
     } else {
         alert("Please fill in all the fields!")
     }
-
 } 
+

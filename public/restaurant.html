@@ -21,7 +21,7 @@
     <div w3-include-html="top-navigation.html"></div>
     <!-- This is the container that holds the initial message, heading, and movies -->
     <div class="container"
-        style="background-color: white; width: 1200px; height: 2000px; margin-left: 190px; margin-top: -20px;">
+        style="background-color: white; width: 1200px; height: fit-content; margin-left: 190px; margin-top: -20px;">
         <img id="picture" style="width: 1140px; height: 310px; margin-left: -15px; object-fit: cover;"></img>
 
         <div id="restaurantDetails" class="container" style="padding: 20px 0px 0px 50px ">
@@ -131,7 +131,7 @@
             </button>
 
             <!-- Display review section -->
-            <div class="container" id="reviews" style="padding-top: 50px; padding-left: 50px;">
+            <div class="container" id="reviews" style="padding-top: 50px; padding-left: 50px; padding-bottom: 40px;">
                 <div id = "reviewBody" class="card" style=" margin-bottom:20px; width: 580px; height: 150px; outline: 1px;">
                     <!--
                     <div class="col-2" style="text-align: center; padding-left:30px; padding-top: 25px;">
@@ -168,8 +168,7 @@
 
         </div>
     </div>
-    <!-- Include the comments modal here -->
-    <div w3-include-html="comments-modal.html"></div>
+
     <!-- Include the new comments modal here -->
     <div w3-include-html="addReviewModal.html"></div>
     <!-- Include the edit comments modal here -->
