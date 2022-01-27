@@ -4,6 +4,8 @@ const UsersDB = require('../models/UsersDB');
 //const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 const res = require('express/lib/response');
+const sgMail = require('@sendgrid/mail');
+
 
 var secret = "somesecretkey"
 
@@ -53,18 +55,18 @@ function loginUser(request, respond) {
         else {
             //const hash = result[0].password;
             //var flag = bcrypt.compareSync(password, hash);
-            if(result.length>0){
+            if (result.length > 0) {
                 if (password == result[0].password) {
                     var token = jwt.sign(username, secret)
-                    respond.json({ result: token, username:username})
+                    respond.json({ result: token, username: username })
                 }
                 else {
                     respond.json({ result: "Invalid" });
                 }
-            }else {
+            } else {
                 respond.json({ result: "Invalid" });
             }
-                
+
         }
     });
 }
@@ -83,7 +85,7 @@ function deleteUser(request, respond) {
 
 function updateUser(request, respond) {
     var user = new User(null, null, request.body.firstName, request.body.lastName, request.body.email, null, request.body.address
-        , request.body.gender, request.body.phoneNumber,request.body.profilePicture)
+        , request.body.gender, request.body.phoneNumber, request.body.profilePicture)
     var token = request.body.token
     try {
         var decoded = jwt.verify(token, secret);
@@ -96,7 +98,7 @@ function updateUser(request, respond) {
             }
         });
     } catch (error) {
-         respond.json({ result: "Invalid token" });
+        respond.json({ result: "Invalid token" });
     }
 
 }
@@ -115,7 +117,7 @@ function updatePassword(request, respond) {
             }
         });
     } catch (error) {
-         respond.json({ result: "Invalid token" });
+        respond.json({ result: "Invalid token" });
     }
 
 }
@@ -134,7 +136,7 @@ function getUserInfo(request, respond) {
     } catch (error) {
         return respond.json(error);
     }
-    
+
 }
 
 function checkUsername(request, respond) {
@@ -165,6 +167,29 @@ function checkUsername(request, respond) {
 function prepareMessage(message) {
     var object = { "message": message };
     return object
-} 
+}
 
-module.exports = { getAllUsers, addUser, loginUser, deleteUser, updateUser, getUserInfo, checkUsername,updatePassword };
+function sendFeedback(request, respond) {
+    var feedback = request.body.feedback;
+    var subject = request.body.subject
+    sgMail.setApiKey("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")
+    const msg = {
+        to: 'brytonfoo1@gmail.com', // Change to your recipient
+        from: 'FoodComaRestaurant@gmail.com', // Change to your verified sender
+        subject: subject,
+        text: feedback,
+        html: '<strong>' + feedback +'</strong>',
+    }
+    sgMail
+        .send(msg)
+        .then(() => {
+            console.log('Email sent');
+            respond.json({result:"success"});
+        })
+        .catch((error) => {
+            console.error(error)
+            respond.json({result:"fail"});
+        })
+}
+
+module.exports = { getAllUsers, addUser, loginUser, deleteUser, updateUser, getUserInfo, checkUsername, updatePassword, sendFeedback };

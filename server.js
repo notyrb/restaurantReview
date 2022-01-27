@@ -27,6 +27,7 @@ app.route('/user/:username').delete(userController.deleteUser)
 app.route('/user').put(userController.updateUser)
 app.route('/userInfo').post(userController.getUserInfo)
 app.route('/user/password').put(userController.updatePassword);
+app.route('/feedback').post(userController.sendFeedback);
 
 app.route('/review/:id')
     .get(reviewController.getReviews)
