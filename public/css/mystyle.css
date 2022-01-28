@@ -299,6 +299,16 @@ form, input, label, p {
     margin-left: 95px;
     padding-top: 35px;
 }
+.filter{
+    width: 200px;
+    height: 35px;
+    outline:none;
+    text-align: center;
+    background-color: #D6D6D6;
+    font-family: "Proxima Nova";
+    border-color: #E8E8E8;
+    margin-bottom: 20px;
+}
 
 
   

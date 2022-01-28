@@ -17,22 +17,15 @@ function getSearchedRestaurants() {
         search.send(JSON.stringify(payload));
     })
 }
-function getFilteredRestaurants() {
-    var filteredCuisines = document.querySelectorAll('.cuisineCheckBox');
-    for (var cuisine of filteredCuisines) {
-        cuisine.addEventListener('click', function () {
-            if (this.checked == true) {
-                cuisineArray.push(this.value);
-            }
-            else {
-                cuisineArray = cuisineArray.filter(e => e !== this.value)
-            }
-        })
-    }
 
-    for (var i = 0; i < cuisineArray.length; i++) {
-        if (cuisineArray[i] == "japanese" || cuisineArray[i] == "chinese" || cuisineArray[i] == "vietnamese") {
-            var search = new XMLHttpRequest();
+function getFilteredRestaurants() {
+    var searchInput = document.getElementById("searchQueryInput")
+    cuisine = document.getElementById("cuisineFilter").value;
+    region = document.getElementById("locationFilter").value;
+    price = document.getElementById("priceFilter").value;
+    // if there is only cuisine filter
+    if (cuisine != "empty" && region == "empty" && price == "empty"){
+        var search = new XMLHttpRequest();
             search.open('POST', 'http://127.0.0.1:8080/cuisine', true)
             search.setRequestHeader("Content-type", "application/json")
             search.onload = function () {
@@ -41,13 +34,152 @@ function getFilteredRestaurants() {
                 displayRestaurants();
             }
 
-            var payload = { cuisine: cuisineArray[i] }
+            var payload = { cuisine: cuisine }
             search.send(JSON.stringify(payload));
-        }
-        else if (cuisineArray[i]== null){
-            displayRestaurants();
-        }
+    }
+    // if there is only region filter
+    else if (cuisine == "empty" && region != "empty" && price == "empty"){
+        console.log(region)
+        var search = new XMLHttpRequest();
+            search.open('POST', 'http://127.0.0.1:8080/region', true)
+            search.setRequestHeader("Content-type", "application/json")
+            search.onload = function () {
+                restaurant_array = JSON.parse(search.responseText);
+                console.log(restaurant_array)
+                displayRestaurants();
+            }
+
+            var payload = { regionArea: region }
+            search.send(JSON.stringify(payload));
+    }
+    // if there is only price filter
+    else if (cuisine == "empty" && region == "empty" && price != "empty"){
+        var search = new XMLHttpRequest();
+            search.open('POST', 'http://127.0.0.1:8080/price', true)
+            search.setRequestHeader("Content-type", "application/json")
+            search.onload = function () {
+                restaurant_array = JSON.parse(search.responseText);
+                console.log(restaurant_array)
+                displayRestaurants();
+            }
+
+            var payload = { price: price }
+            search.send(JSON.stringify(payload));
+    }
+    // if there is only cuisine and region filter
+    else if (cuisine != "empty" && region != "empty" && price =="empty"){
+        console.log(cuisine,region)
+        var cuisineRegion = new XMLHttpRequest();
+            cuisineRegion.open('POST', 'http://127.0.0.1:8080/cuisine/region', true)
+            cuisineRegion.setRequestHeader("Content-type", "application/json")
+            cuisineRegion.onload = function () {
+                restaurant_array = JSON.parse(cuisineRegion.responseText);
+                console.log(restaurant_array)
+                displayRestaurants();
+            }
+            var payload = {cuisine: cuisine, regionArea:region}
+            cuisineRegion.send(JSON.stringify(payload));
+
+    }
+    // if there is only cuisine and price filter
+    else if (cuisine != "empty" && region == "empty" && price !="empty"){
+        console.log(cuisine,region)
+        var cuisineRegion = new XMLHttpRequest();
+            cuisineRegion.open('POST', 'http://127.0.0.1:8080/cuisine/price', true)
+            cuisineRegion.setRequestHeader("Content-type", "application/json")
+            cuisineRegion.onload = function () {
+                restaurant_array = JSON.parse(cuisineRegion.responseText);
+                console.log(restaurant_array)
+                displayRestaurants();
+            }
+            var payload = {cuisine: cuisine, price:price}
+            cuisineRegion.send(JSON.stringify(payload));
+
+    }
+    // if there is only region and price filter
+    else if (cuisine == "empty" && region != "empty" && price !="empty"){
+        console.log(cuisine,region)
+        var cuisineRegion = new XMLHttpRequest();
+            cuisineRegion.open('POST', 'http://127.0.0.1:8080/region/price', true)
+            cuisineRegion.setRequestHeader("Content-type", "application/json")
+            cuisineRegion.onload = function () {
+                restaurant_array = JSON.parse(cuisineRegion.responseText);
+                console.log(restaurant_array)
+                displayRestaurants();
+            }
+            var payload = {regionArea: region, price:price}
+            cuisineRegion.send(JSON.stringify(payload));
+
+    }
+    // if there is cuisine, region and price filter
+    else if (cuisine != "empty" && region != "empty" && price !="empty"){
+        console.log(cuisine,region)
+        var cuisineRegion = new XMLHttpRequest();
+            cuisineRegion.open('POST', 'http://127.0.0.1:8080/cuisine/region/price', true)
+            cuisineRegion.setRequestHeader("Content-type", "application/json")
+            cuisineRegion.onload = function () {
+                restaurant_array = JSON.parse(cuisineRegion.responseText);
+                console.log(restaurant_array)
+                displayRestaurants();
+            }
+            var payload = {cuisine: cuisine, regionArea: region, price:price}
+            cuisineRegion.send(JSON.stringify(payload));
+
+    }
+    else{
+        getAllRestaurants();
+    } 
+
+    /*else if (cuisine != "empty" && searchInput.value != ""){
+        searchInput.addEventListener("keyup", (e) => {
+            if (searchInput.value == ""){
+                var search = new XMLHttpRequest();
+                search.open('POST', 'http://127.0.0.1:8080/cuisine', true)
+                search.setRequestHeader("Content-type", "application/json")
+                search.onload = function () {
+                    restaurant_array = JSON.parse(search.responseText);
+                    console.log("pap")
+                    displayRestaurants();
+                }
     
+                var payload = { cuisine: cuisine }
+                search.send(JSON.stringify(payload));
+
+            }
+            else{
+                searchValue = searchInput.value;
+            var search = new XMLHttpRequest();
+            search.open('POST', 'http://127.0.0.1:8080/search/cuisine', true)
+            search.setRequestHeader("Content-type", "application/json")
+            search.onload = function () {
+                restaurant_array = JSON.parse(search.responseText);
+                console.log(restaurant_array)
+                displayRestaurants();
+            }
+    
+            var payload = {search: searchValue, cuisine:cuisine }
+            search.send(JSON.stringify(payload));
+            }
+                
+        })
+    } */
+}
+
+function sortRestaurants() {
+    order = document.getElementById("ratingSort").value;
+    // sort restaurants by highest rating  
+    if (order == "highestRating") {
+        restaurant_array.sort(function (a, b) {
+            return b.averageRating - a.averageRating;
+        });
+        displayRestaurants();
+    }
+    // sort restaurants by lowest rating  
+    else if (order == "lowestRating") {
+        restaurant_array.sort(function (a, b) {
+            return a.averageRating - b.averageRating;
+        });
+        displayRestaurants();
     }
 
 }
@@ -65,6 +197,7 @@ function getAllRestaurants() {
 }
 
 function displayRestaurants() {
+
     var table = document.getElementById("restaurantTable");
     table.innerHTML = "";
     totalRestaurants = restaurant_array.length;
@@ -118,7 +251,7 @@ function getRestaurantDetails(element) {
         window.location.href = 'restaurant.html'
 
     }
-    getRestaurantDetails.send()
+    getRestaurantDetails.send() 
 }
 
 

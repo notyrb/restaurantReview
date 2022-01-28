@@ -1,4 +1,5 @@
 "use strict";
+const req = require('express/lib/request');
 const RestaurantsDB = require('../models/RestaurantsDB');
 
 var restaurantsDB = new RestaurantsDB();
@@ -29,6 +30,78 @@ function searchRestaurants(request, respond){
 function searchRestaurantsByCuisine(request, respond){
     var cuisine = request.body.cuisine
     restaurantsDB.searchRestaurantsByCuisine(cuisine, function(error, result){
+        if(error){
+            respond.json(error);
+        }
+        else{
+            respond.json(result);
+        }
+    });
+}
+function searchRestaurantsByRegion(request, respond){
+    var region = request.body.regionArea
+    restaurantsDB.searchRestaurantsByRegion(region, function(error, result){
+        if(error){
+            respond.json(error);
+        }
+        else{
+            respond.json(result);
+        }
+    });
+}
+function searchRestaurantsByPrice(request, respond){
+    var price = request.body.price
+    restaurantsDB.searchRestaurantsByPrice(price, function(error, result){
+        if(error){
+            respond.json(error);
+        }
+        else{
+            respond.json(result);
+        }
+    });
+}
+
+function filterRestaurantsByCuisineAndRegion(request, respond){
+    var cuisine = request.body.cuisine
+    var region = request.body.regionArea
+    restaurantsDB.filterRestaurantsByCuisineAndRegion(cuisine, region, function(error, result){
+        if(error){
+            respond.json(error);
+        }
+        else{
+            respond.json(result);
+        }
+    });
+}
+function filterRestaurantsByCuisineAndPrice(request, respond){
+    var cuisine = request.body.cuisine
+    var price = request.body.price
+    restaurantsDB.filterRestaurantsByCuisineAndPrice(cuisine, price, function(error, result){
+        if(error){
+            respond.json(error);
+        }
+        else{
+            respond.json(result);
+        }
+    });
+}
+function filterRestaurantsByRegionAndPrice(request, respond){
+    var price = request.body.price
+    var region = request.body.regionArea
+    restaurantsDB.filterRestaurantsByRegionAndPrice(region, price, function(error, result){
+        if(error){
+            respond.json(error);
+        }
+        else{
+            respond.json(result);
+        }
+    });
+}
+function filterRestaurantsByCuisineAndRegionAndPrice(request, respond){
+    var cuisine = request.body.cuisine
+    var region = request.body.regionArea
+    var price = request.body.price
+    restaurantsDB.filterRestaurantsByCuisineAndRegionAndPrice(cuisine, region, price, function(error, result){
         if(error){
             respond.json(error);
         }
@@ -120,4 +193,5 @@ function getFeaturedRestaurantsDetails(request, respond){
 
 
 module.exports = {getAllRestaurants,searchRestaurants,getFeaturedRestaurantsDetails,getRestaurantDetails,searchRestaurantsByCuisine,searchRestaurantswithCuisineFilter
-,searchRestaurantswithCuisineAndRegionFilter, searchRestaurantswithCuisineAndRegionAndPriceFilter,searchRestaurantswithCuisineAndRegionAndPriceAndRatingFilter};
+,searchRestaurantswithCuisineAndRegionFilter, searchRestaurantswithCuisineAndRegionAndPriceFilter,searchRestaurantswithCuisineAndRegionAndPriceAndRatingFilter, filterRestaurantsByCuisineAndRegion,searchRestaurantsByRegion
+, filterRestaurantsByCuisineAndRegionAndPrice, searchRestaurantsByPrice, filterRestaurantsByRegionAndPrice, filterRestaurantsByCuisineAndPrice}
