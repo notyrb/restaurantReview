@@ -30,7 +30,7 @@ function addUser(request, respond) {
     var password = request.body.password
     //password = bcrypt.hashSync(password, 10)
     var address = request.body.address
-    var gender = request.body.firstName
+    var gender = request.body.gender
     var phoneNumber = request.body.phoneNumber
     var profilePicture = request.body.profilePicture
 
@@ -47,14 +47,11 @@ function addUser(request, respond) {
 function loginUser(request, respond) {
     var username = request.body.username;
     var password = request.body.password;
-    //var profilePicture = request.body.profilePicture;
     usersDB.loginUser(username, function (error, result) {
         if (error) {
             throw error;
         }
         else {
-            //const hash = result[0].password;
-            //var flag = bcrypt.compareSync(password, hash);
             if (result.length > 0) {
                 if (password == result[0].password) {
                     var token = jwt.sign(username, secret)
@@ -172,7 +169,7 @@ function prepareMessage(message) {
 function sendFeedback(request, respond) {
     var feedback = request.body.feedback;
     var subject = request.body.subject
-    sgMail.setApiKey("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")
+    sgMail.setApiKey("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")
     const msg = {
         to: 'brytonfoo1@gmail.com', // Change to your recipient
         from: 'FoodComaRestaurant@gmail.com', // Change to your verified sender

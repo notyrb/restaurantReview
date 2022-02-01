@@ -98,16 +98,6 @@ function getRatingInformation() {
 
 }
 
-
-
-/*function showStarRating(){
-    switch (averageRating){
-        case 1:
-
-    }
-} */
-
-
 function showDollarSigns() {
     if (price == "$") {
         document.getElementById("dollar1").style.color = "black";
@@ -150,18 +140,20 @@ function showRestaurantReviews() {
         var datePosted = review_array[i].datePosted;
         var datePosted = datePosted.substring(0, 15)
         var comment = review_array[i].comment;
+        var totalLikes = review_array[i].totalLikes;
         var profilePicture = review_array[i].profilePicture;
         if (profilePicture == "null" || profilePicture == "" || profilePicture == undefined) {
             profilePicture = "images/avatar.jpg"
         }
-        var html = `<div class="card" style="width: 580px; height: 150px; outline: 1px;">
+        var html = `<div class="card" style="width: 580px; height: 160px; outline: 1px;">
         <div class="col-2" style="text-align: center; padding-left:30px; padding-top: 25px;">`
-        
+
         html += `<img src="${profilePicture}"
         style="width: 60px; height: 60px; border-radius: 50%; ">`
-        html += `<h5 style="font-size: 14px; width: 63px; padding-bottom: 15px; padding-top: 7px; "> ${username}
-            </h5>
-        </div> 
+        html += `<h5 style="font-size: 14px; width: 63px; padding-top: 7px; "> ${username}
+            </h5>`
+        html += `<h5 style="font-size: 16px; width: 150px; margin-left: -30px; margin-top:26px; color:#989898;">${totalLikes} liked this review </h5>`
+        html += `</div> 
         <div class ="col-md-6" style = "padding-left:150px; margin-top: -3px;"> `
 
         var star = "";
@@ -177,10 +169,11 @@ function showRestaurantReviews() {
         }
         html += `<h6 style="padding-top:8px; width: 400px;">${comment}</h6>
         </div>
-        <h7 style="margin-left: 450px; margin-top: -90px; max-width: 200px;">${datePosted}</h7> `
+        <h7 style="margin-left: 370px; margin-top: -100px; max-width: 200px; text-align:right">${datePosted}</h7>
+        <i id="${reviewID}" class="far fa-thumbs-up" style="margin-left: 500px; margin-top:40px; font-size:20px;" onclick= "likeReview(this)"></i> `
 
         if (username == localStorage.getItem("username")) {
-            editDeleteButtons = `<span id = "${reviewID}" class = "editDeleteButtons" style="width:300px; padding-top: 86px; margin-left: 445px; cursor:pointer;">
+            editDeleteButtons = `<span id = "${reviewID}" class = "editDeleteButtons" style="width:300px; padding-top: 45px; margin-left: 445px; cursor:pointer;">
             <span data-toggle="modal" data-target="#editReviewModal" item=` + i + ` onclick = "editReview(this)">Edit</span>
             <i class="fas fa-pencil-alt" data-toggle="modal" data-target="#editReviewModal" ></i>
             <span onclick = "deleteReview(this);" deleteReview(this); style="color:#D44848; padding-left: 5px;">Delete</span>
@@ -388,6 +381,21 @@ function updateReview() {
     }
 }
 
+function likeReview(element) {
+    reviewID = element.id;
+    console.log(reviewID)
+    review = new Object();
+    review.reviewID = reviewID;
+    var likeReview = new XMLHttpRequest();
+    likeReview.open("PUT", "/likeReview", true);
+    likeReview.setRequestHeader("Content-Type", "application/json");
+    likeReview.onload = function () {
+        fetchComments();
+    }
+    likeReview.send(JSON.stringify(review));
+
+
+}
 
 // function to delete review
 function deleteReview(element) {
@@ -401,7 +409,6 @@ function deleteReview(element) {
         eraseComment.onload = function () {
             sessionStorage.setItem("totalReviews", parseInt(totalReviews) - 1)
             getDetails();
-            getRatingInformation();
             fetchComments();
             location.reload();
             window.scrollTo(0, 0);
@@ -419,7 +426,7 @@ function addToFavourites() {
     else if (token != null) {
         var favourite = new Object();
         favourite.favouriteUserID = localStorage.getItem("userID");
-        favourite.favouriteRestaurantID = sessionStorage.getItem("restaurantID");       
+        favourite.favouriteRestaurantID = sessionStorage.getItem("restaurantID");
         var addFavourite = new XMLHttpRequest();
         addFavourite.open("POST", "/favourites", true);
         addFavourite.setRequestHeader("Content-Type", "application/json");
@@ -429,13 +436,13 @@ function addToFavourites() {
         addFavourite.send(JSON.stringify(favourite));
     }
 }
-function deleteFavourite(){
+function deleteFavourite() {
     var response = confirm("Are you sure you want to delete this restaurant from your favourites? ")
-    if (response == true){
+    if (response == true) {
         var favourite = new Object();
         favourite.favouriteUserID = localStorage.getItem("userID");
-        favourite.favouriteRestaurantID = sessionStorage.getItem("restaurantID");  
-        var deleteFavourite = new XMLHttpRequest();  
+        favourite.favouriteRestaurantID = sessionStorage.getItem("restaurantID");
+        var deleteFavourite = new XMLHttpRequest();
         deleteFavourite.open("DELETE", "/favourites", true);
         deleteFavourite.setRequestHeader("Content-Type", "application/json");
         deleteFavourite.onload = function () {
@@ -445,39 +452,39 @@ function deleteFavourite(){
     }
 }
 // check if user has already favourited this restaurant, and show the appropriate icons
-function checkFavourites(){
+function checkFavourites() {
     var checkFavourites = new XMLHttpRequest();
     var userID = localStorage.getItem("userID")
     var restaurantID = sessionStorage.getItem("restaurantID")
     var favBtn = document.getElementById("favouriteBtn")
-    checkFavourites.open("GET","/favourites/"+ userID, true);
-    checkFavourites.onload = function(){
+    checkFavourites.open("GET", "/favourites/" + userID, true);
+    checkFavourites.onload = function () {
         favourites_array = JSON.parse(checkFavourites.responseText);
         for (let index = 0; index < favourites_array.length; index++) {
-            if (favourites_array[index]._id == restaurantID){
+            if (favourites_array[index]._id == restaurantID) {
                 favBtn.style.marginLeft = "380px"
                 favBtn.style.border = "none"
                 favBtn.style.outline = "none"
                 favBtn.style.backgroundColor = "#FBA2A2"
                 favBtn.innerHTML = '<i class="fas fa-heart" style="padding-right: 5px; color:white"></i><span style= "color:white">Remove from favourites</span>'
                 return
-            }    
+            }
         }
         favBtn.style.backgroundColor = "white"
         favBtn.innerHTML = '<i class="far fa-heart" style="padding-right: 5px;"></i>Add to favourites'
     }
     checkFavourites.send();
 }
-function addDeleteFavourites(){
+function addDeleteFavourites() {
     var request = new XMLHttpRequest();
     var userID = localStorage.getItem("userID")
     var restaurantID = sessionStorage.getItem("restaurantID")
-    request.open("GET","/favourites/"+ userID, true);
-    request.onload = function(){
+    request.open("GET", "/favourites/" + userID, true);
+    request.onload = function () {
         favourites_array = JSON.parse(request.responseText);
         console.log(favourites_array)
         for (var index = 0; index < favourites_array.length; index++) {
-            if (favourites_array[index]._id == restaurantID){
+            if (favourites_array[index]._id == restaurantID) {
                 deleteFavourite();
                 return
             }

@@ -6,12 +6,11 @@ function sendFeedback() {
     feedbackUser.onload = function () {
         var token = JSON.parse(feedbackUser.responseText);
         console.log(token.result);
-        if (token.result != "success") {
+        if (token.result == "success") {
             alert("Your feedback has been sent successfully! We will be sure to make full use of it.")  
-            return
         }
         else { 
-            alert("Your feedback has been sent successfully! We will be sure to make full use of it.")
+            alert("Your feedback has not been sent.")
         }
     }
     var subject = document.getElementById("feedbackSubject").value;

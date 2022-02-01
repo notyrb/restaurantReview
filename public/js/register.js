@@ -39,7 +39,7 @@ function registerMe() {
         alert("Passwords do not match! ");
         return;
     }
-
+    
     // use web api to check username in database
     var checkUsername = new XMLHttpRequest();
     checkUsername.open("GET", `/signup/${username}`, true)
@@ -57,6 +57,7 @@ function registerMe() {
                 alert("Successfully signed up!")
             }
             var payload = { username: username, firstName: firstName, lastName: lastName, email: email, password: password, address: address, gender: gender, phoneNumber: phoneNumber }
+            console.log(JSON.stringify(payload))
             registerUser.send(JSON.stringify(payload));
         }
         // if username does exist, user will be prompted to key in username again
@@ -65,7 +66,7 @@ function registerMe() {
             return
         }
     }
-    checkUsername.send()
+    checkUsername.send() 
 }
 
 function loginMe() {

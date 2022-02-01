@@ -49,7 +49,6 @@ function displayRestaurants(){
                         \
                     </div>'
         table.insertAdjacentHTML('beforeend', cell);
-       // movieCount++;
         
     }
 

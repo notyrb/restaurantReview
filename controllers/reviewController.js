@@ -76,6 +76,30 @@ function updateReview(request, respond){
         }
     });
 }
+function likeReview(request, respond){
+    var userID = request.body.likedUserID;
+    var reviewID = request.body.likedReviewID;
+    reviewsDB.likeReview(userID, reviewID, function(error, result){
+        if(error){
+            respond.json(error);
+        }
+        else{
+            respond.json(result);
+        }
+    });
+}
+function dislikeReview(request, respond){
+    var userID = request.body.likedUserID;
+    var reviewID = request.body.likedReviewID;
+    reviewsDB.dislikeReview(userID, reviewID, function(error, result){
+        if(error){
+            respond.json(error);
+        }
+        else{
+            respond.json(result);
+        }
+    });
+}
 
 function getUsersReviews(request, respond){
     var userID = request.params.userID;
@@ -101,4 +125,4 @@ function deleteReview(request, respond){
     });
 }
 
-module.exports = {getReviews, getReviewsByOldest ,getReviewsByHighestRating, getReviewsByLowestRating, addReview, updateReview, deleteReview, getUsersReviews};
+module.exports = {getReviews, getReviewsByOldest ,getReviewsByHighestRating, getReviewsByLowestRating, addReview, updateReview, deleteReview, getUsersReviews, likeReview, dislikeReview};
