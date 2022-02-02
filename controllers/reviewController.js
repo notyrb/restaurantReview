@@ -124,5 +124,16 @@ function deleteReview(request, respond){
         }
     });
 }
+function getUsersLikedReviews(request, respond){
+    var userID = request.params.likedUserID;
+    reviewsDB.getUsersLikedReviews(userID, function(error, result){
+        if(error){
+            respond.json(error);
+        }
+        else{
+            respond.json(result);
+        }
+    });
+}
 
-module.exports = {getReviews, getReviewsByOldest ,getReviewsByHighestRating, getReviewsByLowestRating, addReview, updateReview, deleteReview, getUsersReviews, likeReview, dislikeReview};
+module.exports = {getReviews, getReviewsByOldest ,getReviewsByHighestRating, getReviewsByLowestRating, addReview, updateReview, deleteReview, getUsersReviews, likeReview, dislikeReview,getUsersLikedReviews};

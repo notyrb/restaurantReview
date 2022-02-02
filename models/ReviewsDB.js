@@ -44,6 +44,10 @@ class ReviewsDB{
         var sql = "DELETE FROM restaurant_review.likedreview WHERE likedUserID = ? AND likedReviewID = ?"
         db.query(sql,[userID,reviewID] , callback)
     }
+    getUsersLikedReviews(userID,callback){
+        var sql = "SELECT * FROM restaurant_review.likedreview WHERE likedUserID = ?"
+        return db.query(sql, [userID], callback)
+    }
 }
 
 module.exports = ReviewsDB;

@@ -29,7 +29,7 @@ function getDetails() {
     showDollarSigns();
     fetchComments();
     getRatingInformation();
-
+    storeLikedReviews();
 }
 
 function showMap() {
@@ -169,14 +169,35 @@ function showRestaurantReviews() {
         }
         html += `<h6 style="padding-top:8px; width: 400px;">${comment}</h6>
         </div>
-        <h7 style="margin-left: 370px; margin-top: -100px; max-width: 200px; text-align:right">${datePosted}</h7>
-        <i id="${reviewID}" class="far fa-thumbs-up" style="margin-left: 500px; margin-top:40px; font-size:20px;" onclick= "likeReview(this)"></i> `
+        <h7 style="margin-left: 370px; margin-top: -100px; max-width: 200px; text-align:right">${datePosted}</h7> `
+
+        likedArray = JSON.parse(sessionStorage.getItem("likedArray"))
+        console.log(likedArray)
+        for (var index = 0; index < likedArray.length; index++) {
+            console.log(likedArray[index].likedReviewID)
+            //console.log(reviewID)
+            if (likedArray[index].likedReviewID == reviewID) {
+                //console.log(likeBtn)
+                //likeBtn.setAttribute("class","fas fa-thumbs-up"); 
+                //likeBtn.className = "far fa-thumbs-up"
+                console.log("liked")
+                //console.log(likeBtn)
+                html += `<div value = "${reviewID}" style="margin-left: 500px; margin-top:40px; font-size:20px; cursor:pointer; margin-bottom:-69px;" onclick= "likeUnlikeReviews(this)">
+                                    <i id = "likeBtn" class="fas fa-heart" style = "color:red"></i> 
+                        </div>`
+                //return
+            }
+        }
+        html +=`<div value = "${reviewID}" style="margin-left: 500px; margin-top:40px; font-size:20px; cursor:pointer;" onclick= "likeUnlikeReviews(this)">
+                            <i id = "likeBtn" class="far fa-heart" style = "color:red"></i> 
+                </div>`
+        console.log("not liked")
 
         if (username == localStorage.getItem("username")) {
-            editDeleteButtons = `<span id = "${reviewID}" class = "editDeleteButtons" style="width:300px; padding-top: 45px; margin-left: 445px; cursor:pointer;">
+            editDeleteButtons = `<span id = "${reviewID}" class = "editDeleteButtons" style="width:300px; padding-top: 37px; margin-left: 445px; cursor:pointer;">
             <span data-toggle="modal" data-target="#editReviewModal" item=` + i + ` onclick = "editReview(this)">Edit</span>
-            <i class="fas fa-pencil-alt" data-toggle="modal" data-target="#editReviewModal" ></i>
-            <span onclick = "deleteReview(this);" deleteReview(this); style="color:#D44848; padding-left: 5px;">Delete</span>
+            <i class="fas fa-pencil-alt" data-toggle="modal" data-target="#editReviewModal" onclick = "editReview(this)" ></i>
+            <span onclick = "deleteReview(this);" style="color:#D44848; padding-left: 5px;">Delete</span>
             <i onclick = "deleteReview(this);" class="fas fa-trash" style="color:#D44848;"></i>
             </span> `
             html += editDeleteButtons;
@@ -186,6 +207,7 @@ function showRestaurantReviews() {
             html += empty
         }
         reviews.insertAdjacentHTML('beforeend', html);
+        //checkLikedReviews(reviewID)
     }
 }
 
@@ -380,22 +402,100 @@ function updateReview() {
         updateReview.send(JSON.stringify(review_array[currentIndex]));
     }
 }
-
-function likeReview(element) {
-    reviewID = element.id;
-    console.log(reviewID)
+// function to like a review
+function likeReview(id) {
+    userID = localStorage.getItem("userID")
     review = new Object();
-    review.reviewID = reviewID;
+    review.likedUserID = userID;
+    review.likedReviewID = id;
     var likeReview = new XMLHttpRequest();
     likeReview.open("PUT", "/likeReview", true);
     likeReview.setRequestHeader("Content-Type", "application/json");
     likeReview.onload = function () {
         fetchComments();
+        location.reload();
+        //checkLikedReviews();
     }
     likeReview.send(JSON.stringify(review));
-
-
 }
+// function to unlike a review
+function unlikeReview(id) {
+    userID = localStorage.getItem("userID")
+    review = new Object();
+    review.likedUserID = userID;
+    review.likedReviewID = id;
+    var unlikeReview = new XMLHttpRequest();
+    unlikeReview.open("DELETE", "/dislikeReview", true);
+    unlikeReview.setRequestHeader("Content-Type", "application/json");
+    unlikeReview.onload = function () {
+        fetchComments();
+        location.reload();
+        //checkLikedReviews();
+    }
+    unlikeReview.send(JSON.stringify(review));
+}
+
+function likeUnlikeReviews(element) {
+    var userID = localStorage.getItem("userID")
+    review = new Object();
+    review.likedUserID = userID;
+    var reviewID = element.getAttribute("value");
+    console.log(reviewID)
+    var request = new XMLHttpRequest();
+    request.open("GET", "/userLikedReviews/" + userID, true);
+    request.onload = function () {
+        liked_array = JSON.parse(request.responseText);
+        console.log(liked_array)
+        for (var index = 0; index < liked_array.length; index++) {
+            if (liked_array[index].likedReviewID == reviewID) {
+                unlikeReview(reviewID)
+                console.log("not liked")
+                return
+            }
+        }
+        console.log("liked")
+        likeReview(reviewID)
+    }
+    request.send(JSON.stringify(review));
+}
+
+/*function checkLikedReviews(id) {
+    var userID = localStorage.getItem("userID")
+    var likeBtn = document.getElementById("likeBtn")
+    var reviewID =id;
+    var request = new XMLHttpRequest();
+    request.open("GET", "/userLikedReviews/" +userID, true);
+    request.onload = function () {
+        liked_array = JSON.parse(request.responseText);
+        console.log(liked_array)
+        for (var index = 0; index < liked_array.length; index++) {
+            console.log(liked_array[index].likedReviewID)
+            if (liked_array[index].likedReviewID == reviewID) {
+                console.log(likeBtn)
+                likeBtn.setAttribute("class","fas fa-thumbs-up"); 
+                //likeBtn.className = "far fa-thumbs-up"
+                console.log("liked")
+                console.log(likeBtn)
+                return
+            }
+        } 
+        likeBtn.className  = "far fa-thumbs-up"
+        console.log("not liked")
+        
+    }
+    request.send();
+} */
+function storeLikedReviews() {
+    var userID = localStorage.getItem("userID")
+    var request = new XMLHttpRequest();
+    request.open("GET", "/userLikedReviews/" + userID, true);
+    request.onload = function () {
+        liked_array = JSON.parse(request.responseText);
+        sessionStorage.setItem("likedArray", JSON.stringify(liked_array))
+    }
+    request.send();
+}
+
 
 // function to delete review
 function deleteReview(element) {
@@ -403,6 +503,7 @@ function deleteReview(element) {
 
     if (response == true) {
         var reviewID = element.parentNode.id
+        console.log(reviewID)
         var review_url = "review/" + reviewID;
         var eraseComment = new XMLHttpRequest();
         eraseComment.open("DELETE", review_url, true);

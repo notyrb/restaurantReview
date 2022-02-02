@@ -51,6 +51,7 @@ app.route('/review')
     .post(reviewController.addReview);
 app.route('/likeReview').put(reviewController.likeReview);
 app.route('/dislikeReview').delete(reviewController.dislikeReview);
+app.route('/userLikedReviews/:likedUserID').get(reviewController.getUsersLikedReviews);
 
 app.route('/favourites/:id').get(favouriteController.getFavourites);
 app.route('/favourites').post(favouriteController.addToFavourites)
