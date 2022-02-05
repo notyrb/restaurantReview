@@ -13,8 +13,7 @@ function fetchComments() {
     request.send();
 } 
 
-//This function is to display all the comments of that movie
-//whenever the user click on the "comment" button
+//This function is to display all the review of the restauants
 function showMovieComments(element) {
     document.getElementById("emptyComment").innerHTML = "No review yet. Create one now";
     var item = element.getAttribute("item");
@@ -49,6 +48,7 @@ function showMovieComments(element) {
     }
 }
 
+
 function newComment() {
     //Initialise each HTML input elements in the modal window with default value.
     rating = 0;
@@ -56,7 +56,7 @@ function newComment() {
     document.getElementById("nickname").value = "";
 }
 
-// Submit or send the new comment to the server to be added.
+// Submit or send the new review to the server to be added.
 function addComment() {
     var comment = new Object();
     comment.movieId = movie_array[currentIndex]._id; // Movie ID is required by server to create new comment 

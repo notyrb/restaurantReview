@@ -86,7 +86,10 @@ function loginMe() {
             document.getElementById("profileUsername").style.display = "block";
             document.getElementById("profileDropdown").textContent = token.username
             sessionStorage.setItem("token", token.result)
-            location.reload();
+           // putProfilePictureOnNav();
+            //profilePic = localStorage.getItem("profilePicture")
+            //document.getElementById("userProfilePic").src =  profilePic;
+            window.location.reload();
         }
         else {
             alert("Wrong credentials entered!")

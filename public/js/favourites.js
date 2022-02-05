@@ -39,13 +39,13 @@ function displayFavouriteRestaurants(){
         var cuisine = favourites_array[count].cuisine;
         var price = favourites_array[count].price;
         var thumbnail = favourites_array[count].thumbnail;
-        var cell = '<div id = '+restaurantID+' class="card col-sm-9" onClick="getRestaurantDetails(this)" style = "margin:20px; height:153px"  >\
+        var cell = '<div id = '+restaurantID+' class="card col-sm-11" onClick="getRestaurantDetails(this)" style = "margin:20px; height:153px"  >\
                         <img class="card-img-top" src="' + thumbnail + '" alt="Card image cap" style = "margin-left: -13.5px; width: 260px; height: 150px; cursor:pointer; margin-bottom:-110px;">\
                         <h3 style="padding-left: 280px; float:right; font-family: Proxima Nova; font-size:25px; cursor:pointer" class="card-title" item="' + count + '">' + restaurantName + '</h3>\
                         <h6 style=" color: #000000; padding-left: 280px; margin-top: 3px; font-family: Proxima Nova; font-size:16px; cursor:pointer" class="card-title" item="' + count + '" >' + cuisine + " • "+ price + ' </h6>\
                     </div>'
 
-        var html = '<div class="deleteBtn" id ='+restaurantID+' style = "padding-left:660px; margin-top: -115px;  position:relative;"  onclick = "deleteFavourite(this)">\
+        var html = '<div class="deleteBtn" id ='+restaurantID+' style = "padding-left:850px; margin-top: -115px;  position:relative;"  onclick = "deleteFavourite(this)">\
                             <a type="submit" class="btn btn-primary" id=deleteBtn  style="background-color: #D44848; color:white; border: none; width: 100px; height: 40px; border-radius: 10px; font-family: Proxima Nova; font-weight: bold; line-height: 30px;">Remove</a> \
                       </div>'
         cell += html

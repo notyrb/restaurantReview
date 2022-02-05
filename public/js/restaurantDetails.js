@@ -1,4 +1,5 @@
 var rating;
+// get restaurant's details from sesstion storage to display it
 function getDetails() {
     restaurantName = sessionStorage.getItem("restaurantName")
     cuisine = sessionStorage.getItem("cuisine")
@@ -31,7 +32,7 @@ function getDetails() {
     getRatingInformation();
     storeLikedReviews();
 }
-
+// function to show restaurant's location on google map
 function showMap() {
     longtitude = sessionStorage.getItem("longtitude")
     latitude = sessionStorage.getItem("latitude")
@@ -85,7 +86,7 @@ function showMap() {
             })(marker, i));
         })
 }
-
+// get restaurant's rating
 function getRatingInformation() {
     var restaurantID = sessionStorage.getItem("restaurantID")
     var getRating = new XMLHttpRequest();
@@ -97,7 +98,7 @@ function getRatingInformation() {
     getRating.send()
 
 }
-
+// show the appropraite dollar sign icons for each restaurant
 function showDollarSigns() {
     if (price == "$") {
         document.getElementById("dollar1").style.color = "black";
@@ -112,7 +113,7 @@ function showDollarSigns() {
         document.getElementById("dollar3").style.color = "black"
     }
 }
-
+// function to fetch all reviews from a specific restaurant
 function fetchComments() {
     var request = new XMLHttpRequest();
     restaurantID = sessionStorage.getItem("restaurantID")
@@ -127,7 +128,7 @@ function fetchComments() {
 
     request.send();
 }
-
+// display restaurant's reviews
 function showRestaurantReviews() {
     var reviews = document.getElementById('reviews')
     reviews.innerHTML = ""
@@ -170,22 +171,16 @@ function showRestaurantReviews() {
         html += `<h6 style="padding-top:8px; width: 400px;">${comment}</h6>
         </div>
         <h7 style="margin-left: 370px; margin-top: -100px; max-width: 200px; text-align:right">${datePosted}</h7> `
-
+        // check if review's id match the one in user's liked array and show the appropriate icons
         likedArray = JSON.parse(sessionStorage.getItem("likedArray"))
         console.log(likedArray)
         for (var index = 0; index < likedArray.length; index++) {
             console.log(likedArray[index].likedReviewID)
-            //console.log(reviewID)
             if (likedArray[index].likedReviewID == reviewID) {
-                //console.log(likeBtn)
-                //likeBtn.setAttribute("class","fas fa-thumbs-up"); 
-                //likeBtn.className = "far fa-thumbs-up"
                 console.log("liked")
-                //console.log(likeBtn)
                 html += `<div value = "${reviewID}" style="margin-left: 500px; margin-top:40px; font-size:20px; cursor:pointer; margin-bottom:-69px;" onclick= "likeUnlikeReviews(this)">
                                     <i id = "likeBtn" class="fas fa-heart" style = "color:red"></i> 
                         </div>`
-                //return
             }
         }
         html +=`<div value = "${reviewID}" style="margin-left: 500px; margin-top:40px; font-size:20px; cursor:pointer;" onclick= "likeUnlikeReviews(this)">
@@ -207,7 +202,6 @@ function showRestaurantReviews() {
             html += empty
         }
         reviews.insertAdjacentHTML('beforeend', html);
-        //checkLikedReviews(reviewID)
     }
 }
 
@@ -324,6 +318,7 @@ function changeStarRatingColour(num, classTarget) {
     }
 }
 
+// function to sort reviews
 function sortReviews(order) {
     console.log(order)
     // sort by oldest reviews
@@ -356,7 +351,7 @@ function sortReviews(order) {
     }
 
 }
-
+// function to edit a review
 function editReview(element) {
     var item = element.getAttribute("item");
     document.getElementById("editUserComments").value = review_array[item].comment
@@ -376,6 +371,7 @@ function displayColorStars(classname, num) {
     changeStarRatingColour(num, classTarget);
 }
 
+// function to send the updated review to the database
 function updateReview() {
     if (document.getElementById("editUserComments").value == "" || rating == 0) {
         alert("Ensure all the fields are filled up!")
@@ -404,20 +400,27 @@ function updateReview() {
 }
 // function to like a review
 function likeReview(id) {
-    userID = localStorage.getItem("userID")
-    review = new Object();
-    review.likedUserID = userID;
-    review.likedReviewID = id;
-    var likeReview = new XMLHttpRequest();
-    likeReview.open("PUT", "/likeReview", true);
-    likeReview.setRequestHeader("Content-Type", "application/json");
-    likeReview.onload = function () {
-        fetchComments();
-        location.reload();
-        //checkLikedReviews();
+    token = sessionStorage.getItem("token")
+    if (token == null) {
+        alert("You must be logged in to like this review!")
+        return
     }
-    likeReview.send(JSON.stringify(review));
+    else if (token != null){
+        userID = localStorage.getItem("userID")
+        review = new Object();
+        review.likedUserID = userID;
+        review.likedReviewID = id;
+        var likeReview = new XMLHttpRequest();
+        likeReview.open("PUT", "/likeReview", true);
+        likeReview.setRequestHeader("Content-Type", "application/json");
+        likeReview.onload = function () {
+            fetchComments();
+            location.reload();
+        }
+        likeReview.send(JSON.stringify(review));
+    }
 }
+
 // function to unlike a review
 function unlikeReview(id) {
     userID = localStorage.getItem("userID")
@@ -435,6 +438,7 @@ function unlikeReview(id) {
     unlikeReview.send(JSON.stringify(review));
 }
 
+// function to check whether to like or unlike reviews when the button is pressed
 function likeUnlikeReviews(element) {
     var userID = localStorage.getItem("userID")
     review = new Object();
@@ -458,33 +462,7 @@ function likeUnlikeReviews(element) {
     }
     request.send(JSON.stringify(review));
 }
-
-/*function checkLikedReviews(id) {
-    var userID = localStorage.getItem("userID")
-    var likeBtn = document.getElementById("likeBtn")
-    var reviewID =id;
-    var request = new XMLHttpRequest();
-    request.open("GET", "/userLikedReviews/" +userID, true);
-    request.onload = function () {
-        liked_array = JSON.parse(request.responseText);
-        console.log(liked_array)
-        for (var index = 0; index < liked_array.length; index++) {
-            console.log(liked_array[index].likedReviewID)
-            if (liked_array[index].likedReviewID == reviewID) {
-                console.log(likeBtn)
-                likeBtn.setAttribute("class","fas fa-thumbs-up"); 
-                //likeBtn.className = "far fa-thumbs-up"
-                console.log("liked")
-                console.log(likeBtn)
-                return
-            }
-        } 
-        likeBtn.className  = "far fa-thumbs-up"
-        console.log("not liked")
-        
-    }
-    request.send();
-} */
+// store user's liked reviews in session storage 
 function storeLikedReviews() {
     var userID = localStorage.getItem("userID")
     var request = new XMLHttpRequest();
@@ -495,7 +473,6 @@ function storeLikedReviews() {
     }
     request.send();
 }
-
 
 // function to delete review
 function deleteReview(element) {
@@ -537,6 +514,7 @@ function addToFavourites() {
         addFavourite.send(JSON.stringify(favourite));
     }
 }
+// function to delete favourite
 function deleteFavourite() {
     var response = confirm("Are you sure you want to delete this restaurant from your favourites? ")
     if (response == true) {
@@ -576,6 +554,8 @@ function checkFavourites() {
     }
     checkFavourites.send();
 }
+
+// function to check whether to add to favourite or to delete from favourite when the button is pressed
 function addDeleteFavourites() {
     var request = new XMLHttpRequest();
     var userID = localStorage.getItem("userID")

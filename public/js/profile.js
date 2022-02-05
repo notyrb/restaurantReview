@@ -47,7 +47,8 @@ function getAccountDetails(){
 
 function putProfilePictureOnNav(){
     profilePicture = profile[0].profilePicture;
-    localStorage.setItem("profilePicture", profilePicture)
+    document.getElementById("userProfilePic").src =  profilePicture;
+    //localStorage.setItem("profilePicture", profilePicture)
 }
 
 function deleteAccount() {

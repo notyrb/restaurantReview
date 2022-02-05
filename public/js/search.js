@@ -129,40 +129,6 @@ function getFilteredRestaurants() {
     else{
         getAllRestaurants();
     } 
-
-    /*else if (cuisine != "empty" && searchInput.value != ""){
-        searchInput.addEventListener("keyup", (e) => {
-            if (searchInput.value == ""){
-                var search = new XMLHttpRequest();
-                search.open('POST', 'http://127.0.0.1:8080/cuisine', true)
-                search.setRequestHeader("Content-type", "application/json")
-                search.onload = function () {
-                    restaurant_array = JSON.parse(search.responseText);
-                    console.log("pap")
-                    displayRestaurants();
-                }
-    
-                var payload = { cuisine: cuisine }
-                search.send(JSON.stringify(payload));
-
-            }
-            else{
-                searchValue = searchInput.value;
-            var search = new XMLHttpRequest();
-            search.open('POST', 'http://127.0.0.1:8080/search/cuisine', true)
-            search.setRequestHeader("Content-type", "application/json")
-            search.onload = function () {
-                restaurant_array = JSON.parse(search.responseText);
-                console.log(restaurant_array)
-                displayRestaurants();
-            }
-    
-            var payload = {search: searchValue, cuisine:cuisine }
-            search.send(JSON.stringify(payload));
-            }
-                
-        })
-    } */
 }
 
 function sortRestaurants() {
@@ -187,7 +153,6 @@ function sortRestaurants() {
 function getAllRestaurants() {
     var request = new XMLHttpRequest();
     request.open('GET', 'http://127.0.0.1:8080/restaurants', true)
-    //search.setRequestHeader("Content-type","application/json")
     request.onload = function () {
         restaurant_array = JSON.parse(request.responseText);
         console.log(restaurant_array)
